@@ -27,9 +27,6 @@ class TopFrame: public wxFrame
 
 		void Refresh();
 		void queryInfo(const char* addr, uint16_t port);
-		//void queryHandler(const boost::system::error_code& ec, std::size_t bytes_transferred);
-		//void sendHandler(const boost::system::error_code& ec, std::size_t bytes_transferred);
-		//void timeoutHandler();
 		void receiveHandler();
 
 		//(*Declarations(TopFrame)
@@ -81,14 +78,10 @@ class TopFrame: public wxFrame
         );
 
         void updateBoard(const std::tuple<std::string,std::string,uint8_t,uint8_t,bool,std::string,bool>&);
-        //void startListining();
-        //void asyncSend(const char* addr, uint16_t port);
 
     protected: // data structures
 
         L4D2::a2s_info_Response response;
-        //AsyncIO loc_io;
-        //bool suc_flag;
         std::string  recv_buffer;
 
 

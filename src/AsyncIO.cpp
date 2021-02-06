@@ -6,7 +6,6 @@ void SendAndReceive(std::function<void()> notify_func,
                     std::string* buffer,
                     const char* addr,
                     const uint16_t port) {
-    //boost::asio::ip::udp::endpoint endpoint(boost::asio::ip::address::from_string(addr),port);
     auto endpoint = genUdpEndpoint(addr, port);
     auto p = std::make_shared<AsyncIO>(notify_func, buffer, endpoint);
     p->run(msg);
