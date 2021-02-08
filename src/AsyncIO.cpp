@@ -11,6 +11,7 @@ void SendAndReceive(std::function<void()> notify_func,
     p->run(msg);
 }
 
+/*
 void HTTPSendAndReceive(std::function<void()> notify_func,
                         const std::string& msg,
                         std::string* buffer,
@@ -19,7 +20,7 @@ void HTTPSendAndReceive(std::function<void()> notify_func,
     auto endpoint = genUdpEndpoint(addr, port);
     auto p = std::make_shared<AsyncIO>(notify_func, buffer, endpoint);
     p->run(msg);
-}
+} */
 
 
 // constructor for udp
@@ -29,25 +30,10 @@ AsyncIO::AsyncIO(std::function<void()> notify_func,
     socket(context),
     notify_func(notify_func),
     pBuffer(buffer),
-    con_endpoint(endpoint),
-    con_type(type_connection::udp) {
+    endpoint(endpoint) {
     // open socket and print message
     socket.open(boost::asio::ip::udp::v4());
-    std::cerr << "<AsyncIO> Constructed.\n";
-}
-
-
-// constructor for tcp
-AsyncIO::AsyncIO(std::function<void()> notify_func,
-                 ExternalBufferType* buffer,
-                 boost::asio::ip::tcp::endpoint endpoint):
-    socket(context),
-    notify_func(notify_func),
-    pBuffer(buffer),
-    con_endpoint(endpoint),
-    con_type(type_connection::tcp) {
-    // open socket and print message
-    //socket.open(boost::asio::ip::tcp::v4()); // tcp needn't open
+    socket.connect(endpoint);
     std::cerr << "<AsyncIO> Constructed.\n";
 }
 
@@ -93,15 +79,6 @@ void AsyncIO::receiveHandler(std::shared_ptr<AsyncIO> pThis,
 void AsyncIO::run(const std::string& msg) {
     std::cerr << "<AsyncIO::run> run.\n";
     auto pThis = shared_from_this();
-    switch(con_type) {
-    case type_connection::tcp:
-        socket.connect(con_endpoint.tcp);
-        break;
-    case type_connection::udp:
-        socket.connect(con_endpoint.udp);
-        break;
-    }
-
     socket.async_send(boost::asio::buffer(msg),
                       boost::bind(sendHandler,
                                   this,
