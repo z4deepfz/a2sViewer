@@ -21,9 +21,10 @@ void TopFrame::queryInfo(const char* addr, uint16_t port) {
 }
 
 void TopFrame::receiveHandler() {
-    std::cerr << "<TopFrame::receiveHandler> frame handler called.\n";
+    std::cerr << "<TopFrame::receiveHandler> receive handler called.\n";
     std::cerr << "<TopFrame::receiveHandler> buffer_size=" << recv_buffer.size() << std::endl;
     response.Parse(recv_buffer.c_str());
+    text_rawData->ChangeValue(convertByteToHexString(recv_buffer));
     Refresh();
 }
 
@@ -36,7 +37,7 @@ void TopFrame::updateBoard(
     const wxString& vac,
     const wxString& keywords
 ) {
-    std::cout << server_name;
+    //std::cout << server_name;
     label_servername->SetLabel(server_name);
     label_mapname->SetLabel(map_name);
     label_player_count->SetLabel(players);

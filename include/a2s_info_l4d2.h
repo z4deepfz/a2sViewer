@@ -21,10 +21,12 @@ public:
     a2s_info_Response();
     ~a2s_info_Response();
 
+    // construct class from byte array
     template<typename T> a2s_info_Response(const T* raw) {
         Parse(raw);
     }
 
+    // parse from any container
     template<typename T> void Parse(const T* raw) {
         _parse(reinterpret_cast<const uint8_t*>(raw));
     }

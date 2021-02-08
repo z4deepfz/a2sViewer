@@ -17,6 +17,13 @@ void SendAndReceive(
     const char* addr,
     const uint16_t port);
 
+void HTTPSendAndReceive(
+    std::function<void()> notify_func,
+    const std::string& msg,
+    std::string* recv_buffer,
+    const char* addr,
+    const uint16_t port);
+
 class AsyncIO: public std::enable_shared_from_this<AsyncIO>
 {
 
@@ -29,6 +36,10 @@ public:
     AsyncIO(std::function<void()> notify_func,
             ExternalBufferType* buffer,
             boost::asio::ip::udp::endpoint endpoint);
+        AsyncIO(std::function<void()> notify_func,
+            ExternalBufferType* buffer,
+            boost::asio::ip::tcp::endpoint endpoint);
+
     ~AsyncIO();
 
     void run(const std::string& request);
@@ -49,7 +60,18 @@ protected:
     boost::asio::ip::udp::socket socket;
     std::function<void()> notify_func;
     ExternalBufferType* pBuffer;
-    boost::asio::ip::udp::endpoint endpoint;
+
+    union type_endpoint {
+        boost::asio::ip::udp::endpoint udp;
+        boost::asio::ip::tcp::endpoint tcp;
+        type_endpoint(boost::asio::ip::udp::endpoint e): udp(e) { }
+        type_endpoint(boost::asio::ip::tcp::endpoint e): tcp(e) { }
+    } con_endpoint;
+
+    enum class type_connection {
+        tcp, udp
+    } con_type;
+
 
 private:
 

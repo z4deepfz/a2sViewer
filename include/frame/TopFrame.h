@@ -7,11 +7,13 @@
 //#include <boost/timer/timer.hpp>
 #include <wx/msgdlg.h>
 #include <memory>
+#include "QuickQuerySubscribe.h"
 
 //(*Headers(TopFrame)
 #include <wx/frame.h>
 class wxBoxSizer;
 class wxButton;
+class wxChoice;
 class wxPanel;
 class wxStaticBoxSizer;
 class wxStaticText;
@@ -27,10 +29,11 @@ class TopFrame: public wxFrame
 
 		void Refresh();
 		void queryInfo(const char* addr, uint16_t port);
-		void receiveHandler();
+
 
 		//(*Declarations(TopFrame)
 		wxButton* button_query;
+		wxChoice* choice_quickQuery;
 		wxPanel* Panel1;
 		wxStaticText* StaticText1;
 		wxStaticText* StaticText2;
@@ -41,6 +44,7 @@ class TopFrame: public wxFrame
 		wxStaticText* label_vac;
 		wxTextCtrl* text_IP;
 		wxTextCtrl* text_port;
+		wxTextCtrl* text_rawData;
 		//*)
 
 	protected:
@@ -50,12 +54,14 @@ class TopFrame: public wxFrame
 		static const long ID_TEXTCTRL1;
 		static const long ID_STATICTEXT2;
 		static const long ID_TEXTCTRL2;
+		static const long ID_CHOICE1;
 		static const long ID_BUTTON1;
 		static const long ID_STATICTEXT3;
 		static const long ID_STATICTEXT4;
 		static const long ID_STATICTEXT5;
 		static const long ID_STATICTEXT6;
 		static const long ID_STATICTEXT7;
+		static const long ID_TEXTCTRL3;
 		static const long ID_PANEL1;
 		//*)
 
@@ -63,6 +69,7 @@ class TopFrame: public wxFrame
 
 		//(*Handlers(TopFrame)
 		void OnQueryClick(wxCommandEvent& event);
+		void OnquickQuerySelect(wxCommandEvent& event);
 		//*)
 
 		DECLARE_EVENT_TABLE()
@@ -79,10 +86,19 @@ class TopFrame: public wxFrame
 
         void updateBoard(const std::tuple<std::string,std::string,uint8_t,uint8_t,bool,std::string,bool>&);
 
+        void receiveHandler();
+        void quickQueryReceiveHandler();
+
+        void subscribe(); // ÏòÔ¶³Ì¶©ÔÄ
+
     protected: // data structures
 
         L4D2::a2s_info_Response response;
-        std::string  recv_buffer;
+        QuickQuerySubscribe sub_response;
+
+        std::string recv_buffer;
+        //std::string subs_buffer;
+
 
 
 };

@@ -42,3 +42,6 @@ version.h
 
 # i18n
 *.mo
+
+# Others
+local_res*
