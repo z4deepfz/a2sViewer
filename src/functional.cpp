@@ -59,8 +59,9 @@ static boost::regex IPv4_regex(IPv4_regex_str);
 
 }
 
+namespace functional::detail {
 
-static bool isIP(const char* str)
+bool isIP(const char* str)
 {
 #ifdef USE_STATIC_REGEX
     return boost::xpressive::regex_match(str, IPregex::IPv4_regex);
@@ -69,10 +70,14 @@ static bool isIP(const char* str)
 #endif // USE_STATIC_REGEX
 }
 
+}
+
+
+
 udp::endpoint genUdpEndpoint(const char* addr, uint16_t port)
 {
     using boost::asio::ip::udp;
-    if(isIP(addr)) {
+    if(functional::detail::isIP(addr)) {
         udp::endpoint endpoint(boost::asio::ip::address::from_string(addr), port);
         return endpoint;
     }
@@ -84,3 +89,5 @@ udp::endpoint genUdpEndpoint(const char* addr, uint16_t port)
         return endpoint;
     }
 }
+
+

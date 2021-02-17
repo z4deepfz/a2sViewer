@@ -134,8 +134,8 @@ TopFrame::TopFrame(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSiz
     label_vac->SetLabel(wxEmptyString);
     label_keywords->SetLabel(wxEmptyString);
 
-    unit_test::test_json();
-    //subscribe();
+    //unit_test::test_json();
+    subscribe();
 
 }
 

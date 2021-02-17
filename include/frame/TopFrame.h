@@ -89,7 +89,7 @@ class TopFrame: public wxFrame
         void receiveHandler();
         void quickQueryReceiveHandler();
 
-        void subscribe(); // ÏòÔ¶³Ì¶©ÔÄ
+        void subscribe();
 
     protected: // data structures
 

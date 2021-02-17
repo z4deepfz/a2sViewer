@@ -34,7 +34,6 @@
 
 # IDE files
 *.depend
-*.cbp
 *.layout
 bin
 obj

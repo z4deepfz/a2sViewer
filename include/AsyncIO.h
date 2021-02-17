@@ -17,53 +17,94 @@ void SendAndReceive(
     const char* addr,
     const uint16_t port);
 
-/*
+
 void HTTPSendAndReceive(
     std::function<void()> notify_func,
     const std::string& msg,
     std::string* recv_buffer,
     const char* addr,
     const uint16_t port);
-*/
 
 
-class AsyncIO: public std::enable_shared_from_this<AsyncIO>
+template<class ConT>
+class AsyncIO: public std::enable_shared_from_this<AsyncIO<ConT>>
 {
 
 public:
 
     using ExternalBufferType = std::string;
+    using Endpoint_t = typename ConT::endpoint;
+    using Notifier_t = std::function<void()>;
+    using Socket_t = typename ConT::socket;
+    using Context_t = boost::asio::io_context;
+
+protected:
+
+    Context_t context;
+    Socket_t socket;
+    Notifier_t notify_func;
+    ExternalBufferType* pBuffer;
+    Endpoint_t endpoint;
 
 public:
 
-    AsyncIO(std::function<void()> notify_func,
+    AsyncIO(Notifier_t notify_func,
             ExternalBufferType* buffer,
-            boost::asio::ip::udp::endpoint endpoint);
-        AsyncIO(std::function<void()> notify_func,
-            ExternalBufferType* buffer,
-            boost::asio::ip::tcp::endpoint endpoint);
+            Endpoint_t endpoint):
+                socket(context),
+                notify_func(notify_func),
+                pBuffer(buffer),
+                endpoint(endpoint) {
 
-    ~AsyncIO();
+        socket.open(ConT::v4());
+        socket.connect(endpoint);
+        std::cerr << "<AsyncIO> Constructed.\n";
+    }
 
-    void run(const std::string& request);
+    ~AsyncIO() {
+        std::cerr << "<AsyncIO> Destructed.\n";
+    }
+
+    void run(const std::string& request) {
+        std::cerr << "<AsyncIO::run> run.\n";
+        auto pThis = this->shared_from_this();
+        socket.async_send(boost::asio::buffer(request),
+                          boost::bind(sendHandler,
+                                      this,
+                                      pThis,
+                                      boost::asio::placeholders::error,
+                                      boost::asio::placeholders::bytes_transferred));
+        context.run();
+        std::cerr << "<AsyncIO::run> context run.\n";
+    }
 
 protected:
 
-    void sendHandler(std::shared_ptr<AsyncIO>pThis,
+    void sendHandler(std::shared_ptr<AsyncIO> pThis,
                      const boost::system::error_code& error,
-                     std::size_t bytes_transferred);
+                     std::size_t bytes_transferred) {
+            std::cerr << "<AsyncIO::sendHandler> send handler called.\n";
+            // start receive
+            auto buffer = boost::asio::buffer(*pBuffer, pBuffer->size());
+            auto handler = boost::bind(receiveHandler,
+                                       this,
+                                       pThis,
+                                       boost::asio::placeholders::error,
+                                       boost::asio::placeholders::bytes_transferred);
+            socket.async_receive(buffer, handler);
+            // and do nothing
+    }
 
     void receiveHandler(std::shared_ptr<AsyncIO> pThis,
                         const boost::system::error_code& error,
-                        std::size_t bytes_transferred);
-
-protected:
-
-    boost::asio::io_context context;
-    boost::asio::ip::udp::socket socket;
-    std::function<void()> notify_func;
-    ExternalBufferType* pBuffer;
-    boost::asio::ip::udp::endpoint endpoint;
+                        std::size_t bytes_transferred) {
+            // call notify_func
+            // and return. shared_ptr would destruct itself. Genius
+            std::cerr << "<AsyncIO::receiveHandler> receive handler called.\n";
+            pBuffer->resize(bytes_transferred);
+            notify_func();
+            return;
+    }
 
 private:
 
