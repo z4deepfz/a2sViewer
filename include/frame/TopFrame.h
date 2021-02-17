@@ -97,7 +97,6 @@ class TopFrame: public wxFrame
         QuickQuerySubscribe sub_response;
 
         std::string recv_buffer;
-        //std::string subs_buffer;
 
 
 

@@ -91,7 +91,6 @@
 		<Unit filename="MainApp.h" />
 		<Unit filename="include/AsyncIO.h" />
 		<Unit filename="include/ByteReader.h" />
-		<Unit filename="include/HttpJsonParser.h" />
 		<Unit filename="include/IO.h" />
 		<Unit filename="include/QuickQuerySubscribe.h" />
 		<Unit filename="include/a2s_info_l4d2.h" />
@@ -105,7 +104,6 @@
 		</Unit>
 		<Unit filename="src/AsyncIO.cpp" />
 		<Unit filename="src/ByteReader.cpp" />
-		<Unit filename="src/HttpJsonParser.cpp" />
 		<Unit filename="src/IO.cpp" />
 		<Unit filename="src/QuickQuerySubscribe.cpp" />
 		<Unit filename="src/a2s_info_l4d2.cpp" />
