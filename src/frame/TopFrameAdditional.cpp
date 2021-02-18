@@ -13,7 +13,7 @@ void TopFrame::OnQueryClick(wxCommandEvent& event) {
 void TopFrame::queryInfo(const char* addr, uint16_t port) {
     recv_buffer.resize(1024);
     SendAndReceive(std::function<void(bool)>(boost::bind(receiveHandler, this, boost::placeholders::_1)),
-                   response.getRequestString(),
+                   response.getRequestStr(),
                    &recv_buffer,
                    addr,
                    port);

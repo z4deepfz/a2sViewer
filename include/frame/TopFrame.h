@@ -35,7 +35,7 @@ class TopFrame: public wxFrame
 		//(*Declarations(TopFrame)
 		wxButton* button_query;
 		wxChoice* choice_quickQuery;
-		wxListCtrl* ListCtrl1;
+		wxListCtrl* lc_player;
 		wxPanel* Panel1;
 		wxStaticText* StaticText1;
 		wxStaticText* StaticText2;

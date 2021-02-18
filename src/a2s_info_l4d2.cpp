@@ -22,7 +22,7 @@ a2s_info_Response::~a2s_info_Response()
     //dtor
 }
 
-void a2s_info_Response::_parse(const uint8_t* raw) {
+void a2s_info_Response::parse(const uint8_t* raw) {
     //std::cerr << "<a2s_info_Response::_parse> Start parsing...\n";
     ByteReader r(raw);
     r.Ignore(5);
