@@ -17,6 +17,7 @@ void TopFrame::queryInfo(const char* addr, uint16_t port) {
                    &recv_buffer,
                    addr,
                    port);
+    //std::cerr << "<TopFrame::queryInfo> function returns.\n";
     return;
 }
 

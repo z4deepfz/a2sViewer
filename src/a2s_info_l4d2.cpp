@@ -1,5 +1,6 @@
 #include "a2s_info_l4d2.h"
 #include "ByteReader.h"
+#include <iostream>
 
 namespace L4D2 {
 
@@ -22,6 +23,7 @@ a2s_info_Response::~a2s_info_Response()
 }
 
 void a2s_info_Response::_parse(const uint8_t* raw) {
+    //std::cerr << "<a2s_info_Response::_parse> Start parsing...\n";
     ByteReader r(raw);
     r.Ignore(5);
     protocol = r.Byte();

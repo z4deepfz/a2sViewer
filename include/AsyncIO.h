@@ -74,8 +74,11 @@ public:
                                       pThis,
                                       boost::asio::placeholders::error,
                                       boost::asio::placeholders::bytes_transferred));
+        std::cerr << "<AsyncIO::run> context run...";
+// TODO (z4deepfz#1#): io_context本身没有多线程机制，为它分配一个线程
+
         context.run();
-        std::cerr << "<AsyncIO::run> context run.\n";
+        std::cerr << "successfully\n";
     }
 
 protected:
@@ -92,7 +95,9 @@ protected:
                                        boost::asio::placeholders::error,
                                        boost::asio::placeholders::bytes_transferred);
             socket.async_receive(buffer, handler);
+            std::cerr << "<AsyncIO::sendHandler> leaving send handler.\n";
             // and do nothing
+            return;
     }
 
     void receiveHandler(std::shared_ptr<AsyncIO> pThis,
