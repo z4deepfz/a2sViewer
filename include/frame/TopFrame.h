@@ -14,6 +14,7 @@
 class wxBoxSizer;
 class wxButton;
 class wxChoice;
+class wxListCtrl;
 class wxPanel;
 class wxStaticBoxSizer;
 class wxStaticText;
@@ -34,6 +35,7 @@ class TopFrame: public wxFrame
 		//(*Declarations(TopFrame)
 		wxButton* button_query;
 		wxChoice* choice_quickQuery;
+		wxListCtrl* ListCtrl1;
 		wxPanel* Panel1;
 		wxStaticText* StaticText1;
 		wxStaticText* StaticText2;
@@ -63,6 +65,7 @@ class TopFrame: public wxFrame
 		static const long ID_STATICTEXT5;
 		static const long ID_STATICTEXT6;
 		static const long ID_STATICTEXT7;
+		static const long ID_LISTCTRL1;
 		static const long ID_TEXTCTRL3;
 		static const long ID_PANEL1;
 		//*)

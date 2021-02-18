@@ -228,25 +228,34 @@
 					<option>1</option>
 				</object>
 				<object class="sizeritem">
-					<object class="wxStaticBoxSizer" variable="StaticBoxSizer7" member="no">
-						<label>入站数据</label>
+					<object class="wxStaticBoxSizer" variable="StaticBoxSizer9" member="no">
+						<label>玩家</label>
 						<object class="sizeritem">
-							<object class="wxTextCtrl" name="ID_TEXTCTRL3" variable="text_rawData" member="yes">
-								<value>(no data)</value>
-								<font>
-									<size>10</size>
-									<style>normal</style>
-									<weight>normal</weight>
-									<underlined>0</underlined>
-									<family>swiss</family>
-									<face>Consolas</face>
-								</font>
-								<style>wxTE_NO_VSCROLL|wxTE_MULTILINE</style>
+							<object class="wxListCtrl" name="ID_LISTCTRL1" variable="ListCtrl1" member="yes">
+								<style>wxLC_REPORT</style>
 							</object>
 							<flag>wxALL|wxEXPAND</flag>
 							<border>5</border>
 							<option>1</option>
 						</object>
+					</object>
+					<flag>wxALL|wxEXPAND</flag>
+					<border>5</border>
+					<option>1</option>
+				</object>
+				<object class="sizeritem">
+					<object class="wxTextCtrl" name="ID_TEXTCTRL3" variable="text_rawData" member="yes">
+						<value>(no data)</value>
+						<hidden>1</hidden>
+						<font>
+							<size>10</size>
+							<style>normal</style>
+							<weight>normal</weight>
+							<underlined>0</underlined>
+							<family>swiss</family>
+							<face>Consolas</face>
+						</font>
+						<style>wxTE_NO_VSCROLL|wxTE_MULTILINE</style>
 					</object>
 					<flag>wxALL|wxEXPAND</flag>
 					<border>5</border>
