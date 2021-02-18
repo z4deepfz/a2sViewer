@@ -34,7 +34,6 @@
 
 # IDE files
 *.depend
-*.cbp
 *.layout
 bin
 obj
@@ -42,3 +41,6 @@ version.h
 
 # i18n
 *.mo
+
+# Others
+local_res*

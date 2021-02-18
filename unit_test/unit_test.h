@@ -4,6 +4,7 @@
 namespace unit_test {
 
     void test_convert_from_array();
+    void test_json();
 
 }
 

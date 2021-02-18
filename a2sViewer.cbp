@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="a2sViewer" />
+		<Option pch_mode="2" />
+		<Option compiler="mingw-w64" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/a2sViewer" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="mingw-w64" />
+				<Option use_console_runner="0" />
+				<Option projectLinkerOptionsRelation="2" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-D__WXDEBUG__" />
+					<Add directory="include" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/a2sViewer" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="0" />
+				<Option compiler="mingw-w64" />
+				<Option projectLinkerOptionsRelation="2" />
+				<Compiler>
+					<Add option="-O3" />
+					<Add directory="include" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-std=gnu++2a" />
+			<Add option="-pipe" />
+			<Add option="-mthreads" />
+			<Add option="-finput-charset=UTF-8" />
+			<Add option="-fexec-charset=GB2312" />
+			<Add option="-D__GNUWIN32__" />
+			<Add option="-D__WXMSW__" />
+			<Add option="-DwxUSE_UNICODE" />
+			<Add directory="$(#wx314_x64.INCLUDE)" />
+			<Add directory="$(#boost.INCLUDE)" />
+			<Add directory="include" />
+			<Add directory="unit_test" />
+			<Add directory="include/frame" />
+			<Add directory="3rd" />
+		</Compiler>
+		<ResourceCompiler>
+			<Add directory="$(#wx314_x64.INCLUDE)" />
+		</ResourceCompiler>
+		<Linker>
+			<Add option="-static" />
+			<Add option="-mthreads" />
+			<Add library="wx_mswu_core-3.1" />
+			<Add library="wx_baseu-3.1" />
+			<Add library="wxregexu" />
+			<Add library="wxexpat" />
+			<Add library="wxjpeg" />
+			<Add library="wxpng" />
+			<Add library="wxtiff" />
+			<Add library="wxzlib" />
+			<Add library="libkernel32.a" />
+			<Add library="libuser32.a" />
+			<Add library="libgdi32.a" />
+			<Add library="libwinspool.a" />
+			<Add library="libcomdlg32.a" />
+			<Add library="libadvapi32.a" />
+			<Add library="libshell32.a" />
+			<Add library="libole32.a" />
+			<Add library="liboleaut32.a" />
+			<Add library="libuuid.a" />
+			<Add library="libcomctl32.a" />
+			<Add library="libwsock32.a" />
+			<Add library="libodbc32.a" />
+			<Add library="libshlwapi.a" />
+			<Add library="libversion.a" />
+			<Add library="uxtheme" />
+			<Add library="oleacc" />
+			<Add library="Ws2_32" />
+			<Add library="boost_regex-mgw8-mt-d-x64-1_73" />
+			<Add directory="$(#wx314_x64.LIB)" />
+			<Add directory="$(#boost.LIB)" />
+		</Linker>
+		<Unit filename="MainApp.cpp" />
+		<Unit filename="MainApp.h" />
+		<Unit filename="include/AsyncIO.h" />
+		<Unit filename="include/ByteReader.h" />
+		<Unit filename="include/IO.h" />
+		<Unit filename="include/QuickQuerySubscribe.h" />
+		<Unit filename="include/a2s_info_l4d2.h" />
+		<Unit filename="include/frame/TopFrame.h" />
+		<Unit filename="include/functional.h" />
+		<Unit filename="include/local_res.h" />
+		<Unit filename="include/query.h" />
+		<Unit filename="include/util.h" />
+		<Unit filename="resource.rc">
+			<Option compilerVar="WINDRES" />
+		</Unit>
+		<Unit filename="src/AsyncIO.cpp" />
+		<Unit filename="src/ByteReader.cpp" />
+		<Unit filename="src/IO.cpp" />
+		<Unit filename="src/QuickQuerySubscribe.cpp" />
+		<Unit filename="src/a2s_info_l4d2.cpp" />
+		<Unit filename="src/frame/TopFrame.cpp" />
+		<Unit filename="src/frame/TopFrameAdditional.cpp" />
+		<Unit filename="src/frame/Top_wxChoice.cpp" />
+		<Unit filename="src/functional.cpp" />
+		<Unit filename="src/local_res.cpp" />
+		<Unit filename="src/query.cpp" />
+		<Unit filename="src/util.cpp" />
+		<Unit filename="unit_test/unit_test.cpp" />
+		<Unit filename="unit_test/unit_test.h" />
+		<Unit filename="wxsmith/TopFrame.wxs" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<wxsmith version="1">
+				<resources>
+					<wxFrame wxs="wxsmith/TopFrame.wxs" src="src/frame/TopFrame.cpp" hdr="include/frame/TopFrame.h" fwddecl="1" i18n="1" name="TopFrame" language="CPP" />
+				</resources>
+			</wxsmith>
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

@@ -2,7 +2,7 @@
 <wxsmith>
 	<object class="wxFrame" name="TopFrame">
 		<title>a2s查看器（目前仅支持L4D2）</title>
-		<size>400,400</size>
+		<size>640,480</size>
 		<extra_code>SetIcon(wxIcon(wxT(&quot;aaaa&quot;)));</extra_code>
 		<id_arg>0</id_arg>
 		<object class="wxPanel" name="ID_PANEL1" variable="Panel1" member="yes">
@@ -61,6 +61,22 @@
 							<option>1</option>
 						</object>
 						<object class="sizeritem">
+							<object class="wxStaticBoxSizer" variable="StaticBoxSizer8" member="no">
+								<label>快速查询</label>
+								<object class="sizeritem">
+									<object class="wxChoice" name="ID_CHOICE1" variable="choice_quickQuery" member="yes">
+										<handler function="OnquickQuerySelect" entry="EVT_CHOICE" />
+									</object>
+									<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+									<border>5</border>
+									<option>1</option>
+								</object>
+							</object>
+							<flag>wxALL|wxEXPAND</flag>
+							<border>5</border>
+							<option>1</option>
+						</object>
+						<object class="sizeritem">
 							<object class="wxButton" name="ID_BUTTON1" variable="button_query" member="yes">
 								<label>查询</label>
 								<handler function="OnQueryClick" entry="EVT_BUTTON" />
@@ -68,6 +84,13 @@
 							<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxSHAPED</flag>
 							<border>5</border>
 							<option>1</option>
+						</object>
+						<object class="sizeritem">
+							<object class="wxStaticText" name="ID_STATICTEXT8" variable="StaticText3" member="yes">
+								<label>ver 0.3</label>
+							</object>
+							<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+							<border>5</border>
 						</object>
 					</object>
 					<flag>wxALL|wxEXPAND</flag>
@@ -194,6 +217,31 @@
 									<border>5</border>
 									<option>1</option>
 								</object>
+							</object>
+							<flag>wxALL|wxEXPAND</flag>
+							<border>5</border>
+							<option>1</option>
+						</object>
+					</object>
+					<flag>wxALL|wxEXPAND</flag>
+					<border>5</border>
+					<option>1</option>
+				</object>
+				<object class="sizeritem">
+					<object class="wxStaticBoxSizer" variable="StaticBoxSizer7" member="no">
+						<label>入站数据</label>
+						<object class="sizeritem">
+							<object class="wxTextCtrl" name="ID_TEXTCTRL3" variable="text_rawData" member="yes">
+								<value>(no data)</value>
+								<font>
+									<size>10</size>
+									<style>normal</style>
+									<weight>normal</weight>
+									<underlined>0</underlined>
+									<family>swiss</family>
+									<face>Consolas</face>
+								</font>
+								<style>wxTE_NO_VSCROLL|wxTE_MULTILINE</style>
 							</object>
 							<flag>wxALL|wxEXPAND</flag>
 							<border>5</border>

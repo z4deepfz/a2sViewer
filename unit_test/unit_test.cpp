@@ -1,7 +1,9 @@
 #include <cstdint>
 #include <iostream>
+#include <nlohmann/json.hpp>
 #include "a2s_info_l4d2.h"
 #include "unit_test.h"
+#include "util.h"
 
 namespace unit_test {
 
@@ -12,6 +14,24 @@ void test_convert_from_array()
     L4D2::a2s_info_Response exp = detail::gen_with_example_case();
     detail::show_attributes(exp);
     std::cout << "========= END TEST: convert struct from an array =========\n";
+}
+
+void test_json()
+{
+    quickQuery q;
+    q.name = "tutu";
+    q.addr = "l4d2.mandysa.xyz";
+    q.port = 23333;
+    std::vector<quickQuery> arr;
+    arr.push_back(q);
+    q.name = "doctor";
+    q.addr = "119.45.177.92";
+    q.port = 27015;
+    arr.push_back(q);
+
+    nlohmann::json j = arr;
+    std::cerr << j << std::endl;
+    return;
 }
 
 

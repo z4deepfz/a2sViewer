@@ -1,74 +1,29 @@
 #include "AsyncIO.h"
 #include "functional.h"
 
-void SendAndReceive(std::function<void()> notify_func,
+// well, 仅有一处类型不同的两个函数在C++里显得很傻叉......日后把他们合并成模板函数
+
+void SendAndReceive(std::function<void(bool)> notify_func,
                     const std::string& msg,
                     std::string* buffer,
                     const char* addr,
                     const uint16_t port) {
     auto endpoint = genUdpEndpoint(addr, port);
-    auto p = std::make_shared<AsyncIO>(notify_func, buffer, endpoint);
+    auto p = std::make_shared<AsyncIO<boost::asio::ip::udp>>(notify_func, buffer, endpoint);
     p->run(msg);
+    std::cerr << "<TopFrame::queryInfo> function returns.\n";
 }
 
 
-// constructor
-AsyncIO::AsyncIO(std::function<void()> notify_func,
-                 ExternalBufferType* buffer,
-                 boost::asio::ip::udp::endpoint endpoint):
-    socket(context), notify_func(notify_func), pBuffer(buffer), endpoint(endpoint) {
-    // open socket and print message
-    socket.open(boost::asio::ip::udp::v4());
-    std::cerr << "<AsyncIO> Constructed.\n";
-}
-
-
-// destructor
-AsyncIO::~AsyncIO() {
-    std::cerr << "<AsyncIO> Destructed.\n";
-}
-
-
-// handler
-void AsyncIO::sendHandler(std::shared_ptr<AsyncIO> pThis,
-                          const boost::system::error_code& error,
-                          std::size_t bytes_transferred) {
-    std::cerr << "<AsyncIO::sendHandler> send handler called.\n";
-    // start receive
-    auto buffer = boost::asio::buffer(*pBuffer, pBuffer->size());
-    auto handler = boost::bind(receiveHandler,
-                               this,
-                               pThis,
-                               boost::asio::placeholders::error,
-                               boost::asio::placeholders::bytes_transferred);
-    socket.async_receive(buffer, handler);
-    // and do nothing
-}
-
-
-// handler
-void AsyncIO::receiveHandler(std::shared_ptr<AsyncIO> pThis,
-                             const boost::system::error_code& error,
-                             std::size_t bytes_transferred) {
-    // call notify_func
-    // and return. shared_ptr would destruct itself. Genius
-    std::cerr << "<AsyncIO::receiveHandler> receive handler called.\n";
-    pBuffer->resize(bytes_transferred);
-    notify_func();
+void HTTPSendAndReceive(std::function<void(bool)> notify_func,
+                        const std::string& msg,
+                        std::string* buffer,
+                        const char* addr,
+                        const uint16_t port) {
+    auto endpoint = genEndpoint<boost::asio::ip::tcp>(addr, port);
+    auto p = std::make_shared<AsyncIO<boost::asio::ip::tcp>>(notify_func, buffer, endpoint);
+    p->run(msg);
     return;
 }
 
-
-// when called this function, you can just release the top std::shared_ptr. It would dectrut automatically
-void AsyncIO::run(const std::string& msg) {
-    std::cerr << "<AsyncIO::run> run.\n";
-    auto pThis = shared_from_this();
-    socket.connect(endpoint);
-    socket.async_send(boost::asio::buffer(msg),
-                      boost::bind(sendHandler,
-                                  this,
-                                  pThis,
-                                  boost::asio::placeholders::error,
-                                  boost::asio::placeholders::bytes_transferred));
-    context.run();
-}
+int global_cnt::asyncIO = 0;
