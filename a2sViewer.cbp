@@ -94,6 +94,7 @@
 		<Unit filename="include/IO.h" />
 		<Unit filename="include/QuickQuerySubscribe.h" />
 		<Unit filename="include/a2s_info_l4d2.h" />
+		<Unit filename="include/a2s_player.h" />
 		<Unit filename="include/basic_response.h" />
 		<Unit filename="include/frame/TopFrame.h" />
 		<Unit filename="include/functional.h" />
@@ -108,6 +109,7 @@
 		<Unit filename="src/IO.cpp" />
 		<Unit filename="src/QuickQuerySubscribe.cpp" />
 		<Unit filename="src/a2s_info_l4d2.cpp" />
+		<Unit filename="src/a2s_player.cpp" />
 		<Unit filename="src/basic_response.cpp" />
 		<Unit filename="src/frame/TopFrame.cpp" />
 		<Unit filename="src/frame/TopFrameAdditional.cpp" />

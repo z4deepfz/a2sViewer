@@ -4,7 +4,9 @@
 #include <iostream>
 
 // protocal parser is OOP now. may move to GP one day.
-
+// drived class should implement:
+//   1. parse(const uint8_t*)
+//   2. getRequestStr() const
 class basic_response
 {
 
@@ -13,15 +15,17 @@ public:
     basic_response(); // ctor
 
     template<typename T>
-    basic_response(const T* arr) { // template ctor
-        Parse(arr);
+    void load(const T* arr) { // template ctor
+        loc_arr = reinterpret_cast<const uint8_t*>(arr);
     }
 
     virtual ~basic_response(); // dtor
 
     template<typename T>
-    void Parse(const T* arr) {
-        parse(reinterpret_cast<const uint8_t*>(arr));
+    bool Parse(const T* arr) {
+        // if parse from a array, load it first, then parse it
+        load(arr);
+        return parse(loc_arr);
         // reinterpret the array to uint8(aka byte) array
         // caller should take care of it. Guarantee it's a correct protocal response
     }
@@ -31,8 +35,9 @@ public:
 
 protected:
 
+    const uint8_t* loc_arr;
     // implement this function in derived class
-    virtual void parse(const uint8_t* arr) = 0;
+    virtual bool parse(const uint8_t* arr) = 0;
 
 public: // fields
 
