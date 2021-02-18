@@ -1,3 +1,5 @@
+#include <thread>
+
 #include <wx/app.h>
 #include <wx/wx.h>
 
@@ -31,29 +33,34 @@ T* move_to_heap(T obj)
 
 // end of assistant functions
 
-// 向远端查询订阅信息时，将通过该函数实行通知
-void TopFrame::quickQueryReceiveHandler() {
+// 鍚戣繙绔煡璇㈣闃呬俊鎭椂锛屽皢閫氳繃璇ュ嚱鏁板疄琛岄�氱煡
+void TopFrame::quickQueryReceiveHandler(bool success) {
     std::cerr << "<TopFrame::quickQueryReceiveHandler> handler called.\n";
     // When this function called, there was a full HTTP request inside buffer
     // so before parsing, cut HTTP head
-    std::string& str = *sub_response.getBufferPointer();
-    str = str.substr(str.find('['));
+    if(success) {
+        std::string& str = *sub_response.getBufferPointer();
+        str = str.substr(str.find('['));
 
-    // finally parse the json string
-    auto&& result = sub_response.Parse();
+        // finally parse the json string
+        auto&& result = sub_response.Parse();
 
-    for(auto&& item: result) {
-        auto&& p = move_to_heap(item);
-        auto&& name = item.name;
-        choice_quickQuery->Append(wxString::FromUTF8(name), p);
+        for(auto&& item: result) {
+            auto&& p = move_to_heap(item);
+            auto&& name = item.name;
+            choice_quickQuery->Append(wxString::FromUTF8(name), p);
+        }
+
+        choice_quickQuery->SetSelection(0);
     }
-
-    choice_quickQuery->SetSelection(0);
+    else {
+        wxMessageBox("璁㈤槄澶辫触", "Failed");
+    }
 }
 
 void TopFrame::subscribe() {
-    auto&& callbak =  boost::bind(quickQueryReceiveHandler, this);
-    HTTPSendAndReceive(std::function<void()>(callbak),
+    auto&& callbak =  std::bind(quickQueryReceiveHandler, this, std::placeholders::_1);
+    HTTPSendAndReceive(std::function<void(bool)>(callbak),
                    sub_response.getRequestStr(),
                    sub_response.getBufferPointer(),
                    local_res::addr,

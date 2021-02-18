@@ -37,6 +37,7 @@ class TopFrame: public wxFrame
 		wxPanel* Panel1;
 		wxStaticText* StaticText1;
 		wxStaticText* StaticText2;
+		wxStaticText* StaticText3;
 		wxStaticText* label_keywords;
 		wxStaticText* label_mapname;
 		wxStaticText* label_player_count;
@@ -56,6 +57,7 @@ class TopFrame: public wxFrame
 		static const long ID_TEXTCTRL2;
 		static const long ID_CHOICE1;
 		static const long ID_BUTTON1;
+		static const long ID_STATICTEXT8;
 		static const long ID_STATICTEXT3;
 		static const long ID_STATICTEXT4;
 		static const long ID_STATICTEXT5;
@@ -86,8 +88,8 @@ class TopFrame: public wxFrame
 
         void updateBoard(const std::tuple<std::string,std::string,uint8_t,uint8_t,bool,std::string,bool>&);
 
-        void receiveHandler();
-        void quickQueryReceiveHandler();
+        void receiveHandler(bool success);
+        void quickQueryReceiveHandler(bool success);
 
         void subscribe();
 

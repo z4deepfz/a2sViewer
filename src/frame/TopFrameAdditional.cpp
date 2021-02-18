@@ -12,7 +12,7 @@ void TopFrame::OnQueryClick(wxCommandEvent& event) {
 
 void TopFrame::queryInfo(const char* addr, uint16_t port) {
     recv_buffer.resize(1024);
-    SendAndReceive(std::function<void()>(boost::bind(receiveHandler, this)),
+    SendAndReceive(std::function<void(bool)>(boost::bind(receiveHandler, this, boost::placeholders::_1)),
                    response.getRequestString(),
                    &recv_buffer,
                    addr,
@@ -21,12 +21,17 @@ void TopFrame::queryInfo(const char* addr, uint16_t port) {
     return;
 }
 
-void TopFrame::receiveHandler() {
+void TopFrame::receiveHandler(bool success) {
     //std::cerr << "<TopFrame::receiveHandler> receive handler called.\n";
     //std::cerr << "<TopFrame::receiveHandler> buffer_size=" << recv_buffer.size() << std::endl;
-    response.Parse(recv_buffer.c_str());
-    text_rawData->ChangeValue(convertByteToHexString(recv_buffer));
-    Refresh();
+    if(success) {
+        response.Parse(recv_buffer.c_str());
+        text_rawData->ChangeValue(convertByteToHexString(recv_buffer));
+        Refresh();
+    }
+    else {
+        wxMessageBox("查询失败", "Failed");
+    }
 }
 
 
