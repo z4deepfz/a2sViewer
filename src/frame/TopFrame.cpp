@@ -48,7 +48,8 @@ BEGIN_EVENT_TABLE(TopFrame,wxFrame)
 	//*)
 END_EVENT_TABLE()
 
-TopFrame::TopFrame(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize& size)
+TopFrame::TopFrame(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize& size):
+    local(server_conf_proxy.getDataRef())
 {
 	//(*Initialize(TopFrame)
 	wxBoxSizer* BoxSizer1;

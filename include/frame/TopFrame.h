@@ -134,7 +134,8 @@ class TopFrame: public wxFrame
 
     protected: // about qiuck query
 
-        std::set<quickQuery> remote, local;
+        std::set<quickQuery> remote;
+        std::set<quickQuery>& local;
 
     protected:
 

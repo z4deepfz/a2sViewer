@@ -12,30 +12,28 @@ serverConfigStorage::~serverConfigStorage() {
 
 bool serverConfigStorage::storageLoad(const std::string& storage) {
     // use json to save data
-    nlohmann::json j;
-    try {
-        if(j.parse(storage) == false) {
+    std::cerr << "<serverConfigStorage::storageLoad> Loading...\n";
+    if(storage.size() > 0) {
+        try {
+            auto&& j = nlohmann::json::parse(storage);
+            auto&& size = j.size();
+            for(decltype(size) i=0; i<size; i++) {
+                data.insert(static_cast<quickQuery>(j[i]));
+            }
+        }
+        catch(...) {
+            std::cerr << "<serverConfigStorage::storageLoad> Unknown exception.\n";
             return false;
         }
-        auto&& size = j.size();
-        for(decltype(size) i=0; i<size; i++) {
-            data.insert(static_cast<quickQuery>(j[i]));
-        }
     }
-    catch(...) {
-        return false;
-    }
+    std::cerr << "<serverConfigStorage::storageLoad> successful\n";
     return true;
 }
 
 std::string serverConfigStorage::storageSave() {
-    if(data.size() > 0) {
-        nlohmann::json j = data;
-        return j;
-    }
-    else {
-        return "";
-    }
+    std::cerr << "<serverConfigStorage::storageSave> data size: " << data.size() << std::endl;
+    nlohmann::json j = data;
+    return j.dump();
 }
 
 
@@ -55,3 +53,7 @@ void serverConfigStorage::delItem(const quickQuery& a) {
     data.erase(a);
 }
 
+
+std::set<quickQuery>& serverConfigStorage::getDataRef() {
+    return data;
+}

@@ -15,9 +15,12 @@ class serverConfigStorage : public basic_StorageObject
 
         // reuse quickQuery to load and save config
         std::set<quickQuery> getLoadedRecord() const;
+        std::set<quickQuery>& getDataRef();
 
         void addItem(const quickQuery& item);
         void delItem(const quickQuery& item);
+
+
 
     protected:
 

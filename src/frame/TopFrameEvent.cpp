@@ -44,11 +44,12 @@ void TopFrame::OnSaveConfig(wxCommandEvent& event) {
     text_port->GetValue().ToLong(&val);
 
     quickQuery conf;
-    conf.name = text_name->GetValue();
+    conf.name = text_name->GetValue().utf8_str();
     conf.addr = text_IP->GetValue();
     conf.port = val;
 
     local.insert(conf);
+    std::cerr << "<TopFrame::OnSaveConfig> Current local storage size: " << local.size() << std::endl;
 
     // for quicker, insert to choice.buffer and refresh directly
     choice_quickQuery->buffer.insert(conf);
@@ -60,6 +61,11 @@ void TopFrame::OnSaveConfig(wxCommandEvent& event) {
 // 按钮：删除配置（按照名称，仅从本地修改）
 void TopFrame::OnDeleteConfig(wxCommandEvent& event) {
     quickQuery conf;
-    conf.name = text_name->GetValue();
+
+    // note: must use utf8_str to get correct string
+    // or std::set cannot find it
+    conf.name = text_name->GetValue().utf8_str();
+
     local.erase(conf);
+    loadConfigToChoiceBox();
 }

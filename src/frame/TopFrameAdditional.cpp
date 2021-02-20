@@ -133,7 +133,7 @@ void TopFrame::clearAll() {
 
 void TopFrame::loadConfigToChoiceBox() {
     auto& choice = *choice_quickQuery;
-    auto tmp = local;
+    std::set<quickQuery> tmp = local;
     tmp.insert(remote.begin(), remote.end());
     choice.buffer = tmp;
     choice.Refresh();
