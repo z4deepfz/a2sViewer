@@ -65,6 +65,7 @@
 								<label>快速查询</label>
 								<object class="sizeritem">
 									<object class="wxChoice" name="ID_CHOICE1" variable="choice_quickQuery" member="yes">
+										<enabled>0</enabled>
 										<handler function="OnquickQuerySelect" entry="EVT_CHOICE" />
 									</object>
 									<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
@@ -87,7 +88,7 @@
 						</object>
 						<object class="sizeritem">
 							<object class="wxStaticText" name="ID_STATICTEXT8" variable="StaticText3" member="yes">
-								<label>ver 0.3</label>
+								<label>ver 0.32</label>
 							</object>
 							<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 							<border>5</border>
@@ -95,7 +96,7 @@
 					</object>
 					<flag>wxALL|wxEXPAND</flag>
 					<border>5</border>
-					<option>1</option>
+					<option>2</option>
 				</object>
 				<object class="sizeritem">
 					<object class="wxBoxSizer" variable="BoxSizer3" member="no">
@@ -225,23 +226,15 @@
 					</object>
 					<flag>wxALL|wxEXPAND</flag>
 					<border>5</border>
-					<option>1</option>
+					<option>3</option>
 				</object>
 				<object class="sizeritem">
-					<object class="wxStaticBoxSizer" variable="StaticBoxSizer7" member="no">
-						<label>入站数据</label>
+					<object class="wxStaticBoxSizer" variable="StaticBoxSizer9" member="no">
+						<label>玩家</label>
 						<object class="sizeritem">
-							<object class="wxTextCtrl" name="ID_TEXTCTRL3" variable="text_rawData" member="yes">
-								<value>(no data)</value>
-								<font>
-									<size>10</size>
-									<style>normal</style>
-									<weight>normal</weight>
-									<underlined>0</underlined>
-									<family>swiss</family>
-									<face>Consolas</face>
-								</font>
-								<style>wxTE_NO_VSCROLL|wxTE_MULTILINE</style>
+							<object class="wxListCtrl" name="ID_LISTCTRL1" variable="list_playerlist" member="yes">
+								<minsize>100,0</minsize>
+								<style>wxLC_REPORT</style>
 							</object>
 							<flag>wxALL|wxEXPAND</flag>
 							<border>5</border>
@@ -250,7 +243,7 @@
 					</object>
 					<flag>wxALL|wxEXPAND</flag>
 					<border>5</border>
-					<option>1</option>
+					<option>2</option>
 				</object>
 			</object>
 		</object>

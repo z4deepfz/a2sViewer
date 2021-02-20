@@ -1,3 +1,7 @@
+/**
+    This cpp file only used for wxSmith to construct GUI
+    Shouldn't edit it if not necessary expect modify the procedure when constructing
+*/
 #include "TopFrame.h"
 #include "functional.h"
 #include "unit_test.h"
@@ -10,6 +14,7 @@
 #include <wx/choice.h>
 #include <wx/font.h>
 #include <wx/intl.h>
+#include <wx/listctrl.h>
 #include <wx/panel.h>
 #include <wx/sizer.h>
 #include <wx/stattext.h>
@@ -30,7 +35,7 @@ const long TopFrame::ID_STATICTEXT4 = wxNewId();
 const long TopFrame::ID_STATICTEXT5 = wxNewId();
 const long TopFrame::ID_STATICTEXT6 = wxNewId();
 const long TopFrame::ID_STATICTEXT7 = wxNewId();
-const long TopFrame::ID_TEXTCTRL3 = wxNewId();
+const long TopFrame::ID_LISTCTRL1 = wxNewId();
 const long TopFrame::ID_PANEL1 = wxNewId();
 //*)
 
@@ -53,8 +58,8 @@ TopFrame::TopFrame(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSiz
 	wxStaticBoxSizer* StaticBoxSizer4;
 	wxStaticBoxSizer* StaticBoxSizer5;
 	wxStaticBoxSizer* StaticBoxSizer6;
-	wxStaticBoxSizer* StaticBoxSizer7;
 	wxStaticBoxSizer* StaticBoxSizer8;
+	wxStaticBoxSizer* StaticBoxSizer9;
 
 	Create(parent, wxID_ANY, _("a2s查看器（目前仅支持L4D2）"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("wxID_ANY"));
 	SetClientSize(wxSize(640,480));
@@ -78,13 +83,14 @@ TopFrame::TopFrame(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSiz
 	BoxSizer2->Add(StaticBoxSizer1, 1, wxALL|wxEXPAND, 5);
 	StaticBoxSizer8 = new wxStaticBoxSizer(wxHORIZONTAL, Panel1, _("快速查询"));
 	choice_quickQuery = new wxChoice(Panel1, ID_CHOICE1, wxDefaultPosition, wxDefaultSize, 0, 0, 0, wxDefaultValidator, _T("ID_CHOICE1"));
+	choice_quickQuery->Disable();
 	StaticBoxSizer8->Add(choice_quickQuery, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	BoxSizer2->Add(StaticBoxSizer8, 1, wxALL|wxEXPAND, 5);
 	button_query = new wxButton(Panel1, ID_BUTTON1, _("查询"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON1"));
 	BoxSizer2->Add(button_query, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxSHAPED, 5);
-	StaticText3 = new wxStaticText(Panel1, ID_STATICTEXT8, _("ver 0.3"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT8"));
+	StaticText3 = new wxStaticText(Panel1, ID_STATICTEXT8, _("ver 0.32"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT8"));
 	BoxSizer2->Add(StaticText3, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-	BoxSizer1->Add(BoxSizer2, 1, wxALL|wxEXPAND, 5);
+	BoxSizer1->Add(BoxSizer2, 2, wxALL|wxEXPAND, 5);
 	BoxSizer3 = new wxBoxSizer(wxVERTICAL);
 	StaticBoxSizer2 = new wxStaticBoxSizer(wxHORIZONTAL, Panel1, _("服务器名"));
 	label_servername = new wxStaticText(Panel1, ID_STATICTEXT3, _("Label"), wxDefaultPosition, wxDefaultSize, wxALIGN_CENTRE, _T("ID_STATICTEXT3"));
@@ -116,13 +122,12 @@ TopFrame::TopFrame(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSiz
 	label_keywords->SetFont(label_keywordsFont);
 	StaticBoxSizer6->Add(label_keywords, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	BoxSizer3->Add(StaticBoxSizer6, 1, wxALL|wxEXPAND, 5);
-	BoxSizer1->Add(BoxSizer3, 1, wxALL|wxEXPAND, 5);
-	StaticBoxSizer7 = new wxStaticBoxSizer(wxHORIZONTAL, Panel1, _("入站数据"));
-	text_rawData = new wxTextCtrl(Panel1, ID_TEXTCTRL3, _("(no data)"), wxDefaultPosition, wxDefaultSize, wxTE_NO_VSCROLL|wxTE_MULTILINE, wxDefaultValidator, _T("ID_TEXTCTRL3"));
-	wxFont text_rawDataFont(10,wxFONTFAMILY_SWISS,wxFONTSTYLE_NORMAL,wxFONTWEIGHT_NORMAL,false,_T("Consolas"),wxFONTENCODING_DEFAULT);
-	text_rawData->SetFont(text_rawDataFont);
-	StaticBoxSizer7->Add(text_rawData, 1, wxALL|wxEXPAND, 5);
-	BoxSizer1->Add(StaticBoxSizer7, 1, wxALL|wxEXPAND, 5);
+	BoxSizer1->Add(BoxSizer3, 3, wxALL|wxEXPAND, 5);
+	StaticBoxSizer9 = new wxStaticBoxSizer(wxHORIZONTAL, Panel1, _("玩家"));
+	list_playerlist = new wxListCtrl(Panel1, ID_LISTCTRL1, wxDefaultPosition, wxDefaultSize, wxLC_REPORT, wxDefaultValidator, _T("ID_LISTCTRL1"));
+	list_playerlist->SetMinSize(wxSize(100,0));
+	StaticBoxSizer9->Add(list_playerlist, 1, wxALL|wxEXPAND, 5);
+	BoxSizer1->Add(StaticBoxSizer9, 2, wxALL|wxEXPAND, 5);
 	Panel1->SetSizer(BoxSizer1);
 	BoxSizer1->Fit(Panel1);
 	BoxSizer1->SetSizeHints(Panel1);
@@ -131,13 +136,20 @@ TopFrame::TopFrame(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSiz
 	Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&TopFrame::OnQueryClick);
 	//*)
 
+
+
+	// following are custom code. Don't change the above lines.
+
     label_servername->SetLabel(wxEmptyString);
     label_mapname->SetLabel(wxEmptyString);
     label_player_count->SetLabel(wxEmptyString);
     label_vac->SetLabel(wxEmptyString);
     label_keywords->SetLabel(wxEmptyString);
 
-    //unit_test::test_json();
+    list_playerlist->InsertColumn(0, "名字");
+    list_playerlist->InsertColumn(1, "分数");
+    list_playerlist->InsertColumn(2, "时间");
+
     subscribe();
 
 }

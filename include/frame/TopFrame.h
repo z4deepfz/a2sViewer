@@ -1,12 +1,17 @@
 #ifndef TOPFRAME_H
 #define TOPFRAME_H
 
+#include <memory>
+
+#include <boost/asio.hpp>
+
+#include <wx/wx.h>
+#include <wx/app.h>
+#include <wx/msgdlg.h>
+
 #include "query.h"
 #include "a2s_info_l4d2.h"
-#include <boost/asio.hpp>
-//#include <boost/timer/timer.hpp>
-#include <wx/msgdlg.h>
-#include <memory>
+#include "a2s_player.h"
 #include "QuickQuerySubscribe.h"
 
 //(*Headers(TopFrame)
@@ -14,6 +19,7 @@
 class wxBoxSizer;
 class wxButton;
 class wxChoice;
+class wxListCtrl;
 class wxPanel;
 class wxStaticBoxSizer;
 class wxStaticText;
@@ -28,12 +34,14 @@ class TopFrame: public wxFrame
 		virtual ~TopFrame();
 
 		void Refresh();
-		void queryInfo(const char* addr, uint16_t port);
+		void queryInfo(const std::string& addr, uint16_t port);
+		void queryPlayers(const std::string& addr, uint16_t port, uint8_t retry=5); // 5 times retry
 
 
 		//(*Declarations(TopFrame)
 		wxButton* button_query;
 		wxChoice* choice_quickQuery;
+		wxListCtrl* list_playerlist;
 		wxPanel* Panel1;
 		wxStaticText* StaticText1;
 		wxStaticText* StaticText2;
@@ -45,7 +53,6 @@ class TopFrame: public wxFrame
 		wxStaticText* label_vac;
 		wxTextCtrl* text_IP;
 		wxTextCtrl* text_port;
-		wxTextCtrl* text_rawData;
 		//*)
 
 	protected:
@@ -63,7 +70,7 @@ class TopFrame: public wxFrame
 		static const long ID_STATICTEXT5;
 		static const long ID_STATICTEXT6;
 		static const long ID_STATICTEXT7;
-		static const long ID_TEXTCTRL3;
+		static const long ID_LISTCTRL1;
 		static const long ID_PANEL1;
 		//*)
 
@@ -85,18 +92,25 @@ class TopFrame: public wxFrame
             const wxString& vac,
             const wxString& keywords
         );
+        void updatePlayers(
+            const std::vector<std::string>& name,
+            const std::vector<int>& score,
+            const std::vector<float>& time
+        );
 
         void updateBoard(const std::tuple<std::string,std::string,uint8_t,uint8_t,bool,std::string,bool>&);
 
         void receiveHandler(bool success);
         void quickQueryReceiveHandler(bool success);
+        void playerQueryHandler(bool success);
 
         void subscribe();
 
     protected: // data structures
 
         L4D2::a2s_info_Response response;
-        QuickQuerySubscribe sub_response;
+        QuickQuerySubscribe     sub_response;
+        a2s_player              player_response;
 
         std::string recv_buffer;
 

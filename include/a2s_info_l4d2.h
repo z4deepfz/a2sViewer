@@ -1,13 +1,14 @@
-#include <cstdint>
-#include <string>
-#include <array>
-
 #ifndef A2S_INFO_L4D2_H
 #define A2S_INFO_L4D2_H
 
+#include <cstdint>
+#include <string>
+#include <array>
+#include "basic_response.h"
+
 namespace L4D2 {
 
-class a2s_info_Response {
+class a2s_info_Response: public basic_response {
 
 public:
 
@@ -22,16 +23,16 @@ public:
     ~a2s_info_Response();
 
     // construct class from byte array
-    template<typename T> a2s_info_Response(const T* raw) {
-        Parse(raw);
+    template<typename T> a2s_info_Response(const T* raw){
+        load(raw);
     }
 
-    // parse from any container
+    /*// parse from any container
     template<typename T> void Parse(const T* raw) {
-        _parse(reinterpret_cast<const uint8_t*>(raw));
-    }
+        parse(reinterpret_cast<const uint8_t*>(raw));
+    }*/
 
-    std::string getRequestString() const {
+    virtual std::string getRequestStr() const override {
         std::string ret;
         for(auto i: request) {
             ret.push_back(i);
@@ -87,7 +88,7 @@ public:
 
 protected:
 
-    void _parse(const uint8_t* raw);
+    virtual bool parse(const uint8_t* raw) override;
 
 };
 

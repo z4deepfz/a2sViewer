@@ -1,40 +1,44 @@
-#include <wx/wx.h>
-#include <wx/app.h>
+#include <wx/listctrl.h>
 #include "TopFrame.h"
+#include "local_res.h"
 
-void TopFrame::OnQueryClick(wxCommandEvent& event) {
-    wxString IP = text_IP->GetValue();
-    wxString port = text_port->GetValue();
-    long s32port;
-    port.ToLong(&s32port);
-    queryInfo(IP.c_str(), s32port);
-}
-
-void TopFrame::queryInfo(const char* addr, uint16_t port) {
+void TopFrame::queryInfo(const std::string& addr, uint16_t port) {
     recv_buffer.resize(1024);
-    SendAndReceive(std::function<void(bool)>(boost::bind(receiveHandler, this, boost::placeholders::_1)),
-                   response.getRequestString(),
+
+    auto&& notifier_a2s_info = boost::bind(receiveHandler, this, boost::placeholders::_1);
+
+    SendAndReceive(std::function<void(bool)>(notifier_a2s_info),
+                   response.getRequestStr(),
                    &recv_buffer,
-                   addr,
-                   port);
-    //std::cerr << "<TopFrame::queryInfo> function returns.\n";
+                   addr.c_str(), port);
     return;
 }
 
-void TopFrame::receiveHandler(bool success) {
-    //std::cerr << "<TopFrame::receiveHandler> receive handler called.\n";
-    //std::cerr << "<TopFrame::receiveHandler> buffer_size=" << recv_buffer.size() << std::endl;
-    if(success) {
-        response.Parse(recv_buffer.c_str());
-        text_rawData->ChangeValue(convertByteToHexString(recv_buffer));
-        Refresh();
-    }
-    else {
-        wxMessageBox("查询失败", "Failed");
-    }
+void TopFrame::queryPlayers(const std::string& addr, uint16_t port, uint8_t retry) {
+    //                      ^ since may requery, use std::string to hold address instead of const char*
+    //                        const char* is not relieable because it may be moved or destructed
+
+    // because query might failed, so use following lambda expression to handle `challenage`
+    // origin handler would be invoked inside.
+    auto h = [addr,port,retry,this](bool success){
+        if(player_response.needResponse()) {
+            if(retry > 0) {
+                queryPlayers(addr.c_str(), port, retry-1);
+            }
+            else { // if 3 retries failed, don't retry again!
+                playerQueryHandler(false);
+            }
+        }
+        else {
+            playerQueryHandler(success);
+        }
+    };
+    //auto&& notifier_a2s_player = boost::bind(playerQueryHandler, this, boost::placeholders::_1);
+    SendAndReceive(std::function<void(bool)>(h),
+                   player_response.getRequestStr(),
+                   player_response.getBufferPtr(),
+                   addr.c_str(), port);
 }
-
-
 
 void TopFrame::updateBoard(
     const wxString& server_name,
@@ -82,5 +86,35 @@ void TopFrame::updateBoard(
 
 void TopFrame::Refresh() {
     updateBoard(getNeededAttributesFromA2sResponse(response));
+}
+
+
+void TopFrame::subscribe() {
+#ifdef ENABLE_SUBSCRIBE // if not enable subscribe, it wouldn'd do anything
+    auto&& callbak =  std::bind(quickQueryReceiveHandler, this, std::placeholders::_1);
+    try {
+        HTTPSendAndReceive(std::function<void(bool)>(callbak),
+                       sub_response.getRequestStr(),
+                       sub_response.getBufferPointer(),
+                       local_res::addr,
+                       local_res::port);
+    }
+    catch(...) {
+        // do nothing if failed
+    }
+#endif // ENABLE_SUBSCRIBE
+}
+
+void TopFrame::updatePlayers(const std::vector<std::string>& name,
+                             const std::vector<int>& score,
+                             const std::vector<float>& time) {
+    list_playerlist->DeleteAllItems();
+    auto&& size = name.size();
+    for(size_t i=0; i<size; i++) {
+        auto&& id = list_playerlist->InsertItem(0, wxString::FromUTF8(name[i]));
+        list_playerlist->SetItem(id, 1, wxString::Format("%d", score[i]));
+        int sec = time[i];
+        list_playerlist->SetItem(id, 2, wxString::Format("%02d:%02d", sec/60, sec%60));
+    }
 }
 
