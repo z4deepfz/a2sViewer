@@ -49,6 +49,7 @@ void TopFrame::quickQueryReceiveHandler(bool success) {
         }
 
         choice_quickQuery->SetSelection(0);
+        choice_quickQuery->Enable(true);
     }
     else {
         wxMessageBox("订阅失败", "Failed");

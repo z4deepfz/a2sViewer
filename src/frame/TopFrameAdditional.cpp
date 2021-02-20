@@ -63,11 +63,18 @@ void TopFrame::Refresh() {
 
 
 void TopFrame::subscribe() {
+#ifdef ENABLE_SUBSCRIBE // if not enable subscribe, it wouldn'd do anything
     auto&& callbak =  std::bind(quickQueryReceiveHandler, this, std::placeholders::_1);
-    HTTPSendAndReceive(std::function<void(bool)>(callbak),
-                   sub_response.getRequestStr(),
-                   sub_response.getBufferPointer(),
-                   local_res::addr,
-                   local_res::port);
+    try {
+        HTTPSendAndReceive(std::function<void(bool)>(callbak),
+                       sub_response.getRequestStr(),
+                       sub_response.getBufferPointer(),
+                       local_res::addr,
+                       local_res::port);
+    }
+    catch(...) {
+        // do nothing if failed
+    }
+#endif // ENABLE_SUBSCRIBE
 }
 

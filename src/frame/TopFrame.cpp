@@ -84,11 +84,12 @@ TopFrame::TopFrame(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSiz
 	BoxSizer2->Add(StaticBoxSizer1, 1, wxALL|wxEXPAND, 5);
 	StaticBoxSizer8 = new wxStaticBoxSizer(wxHORIZONTAL, Panel1, _("快速查询"));
 	choice_quickQuery = new wxChoice(Panel1, ID_CHOICE1, wxDefaultPosition, wxDefaultSize, 0, 0, 0, wxDefaultValidator, _T("ID_CHOICE1"));
+	choice_quickQuery->Disable();
 	StaticBoxSizer8->Add(choice_quickQuery, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	BoxSizer2->Add(StaticBoxSizer8, 1, wxALL|wxEXPAND, 5);
 	button_query = new wxButton(Panel1, ID_BUTTON1, _("查询"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON1"));
 	BoxSizer2->Add(button_query, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxSHAPED, 5);
-	StaticText3 = new wxStaticText(Panel1, ID_STATICTEXT8, _("ver 0.3"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT8"));
+	StaticText3 = new wxStaticText(Panel1, ID_STATICTEXT8, _("ver 0.31"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT8"));
 	BoxSizer2->Add(StaticText3, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	BoxSizer1->Add(BoxSizer2, 2, wxALL|wxEXPAND, 5);
 	BoxSizer3 = new wxBoxSizer(wxVERTICAL);

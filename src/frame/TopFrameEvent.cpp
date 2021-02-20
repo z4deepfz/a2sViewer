@@ -1,16 +1,24 @@
 #include "TopFrame.h"
 
-// µã»÷£º²éÑ¯°´Å¥
+// ç‚¹å‡»ï¼šæŸ¥è¯¢æŒ‰é’®
 void TopFrame::OnQueryClick(wxCommandEvent& event) {
     wxString IP = text_IP->GetValue();
     wxString port = text_port->GetValue();
     long s32port;
     port.ToLong(&s32port);
-    queryInfo(IP.c_str(), s32port);
+    try {
+        queryInfo(IP.c_str(), s32port);
+    }
+    catch(...) {
+        // boost::asio may throws exception here
+        // temprory only shows a warning window when query failed
+        // TODO: add exception handler in the future
+        wxMessageBox("ç½‘ç»œé”™è¯¯", "æŸ¥è¯¢å¤±è´¥");
+    }
 }
 
 
-// Ñ¡ÖÐ£º¿ìËÙ²éÑ¯¿ò
+// é€‰ä¸­ï¼šå¿«é€ŸæŸ¥è¯¢æ¡†
 // when quick query selection selected, fill its property to IP and port
 void TopFrame::OnquickQuerySelect(wxCommandEvent& event) {
     auto sel = choice_quickQuery->GetSelection();
