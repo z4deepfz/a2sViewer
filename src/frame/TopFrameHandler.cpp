@@ -55,3 +55,27 @@ void TopFrame::quickQueryReceiveHandler(bool success) {
         wxMessageBox("订阅失败", "Failed");
     }
 }
+
+// 查询玩家列表的请求handler
+void TopFrame::playerQueryHandler(bool success) {
+    std::cerr << "<TopFrame::playerQueryHandler> handler called.\n";
+    if(success) {
+        // challenage problem has been solved at caller
+        // so ignore challenage here
+        if(player_response.Parse()) {
+            const auto& score =  player_response.score;
+            const auto& name  =  player_response.name;
+            const auto& time  =  player_response.time;
+//            const auto& count =  player_response.player_count;
+//
+//            std::cerr << "<TopFrame::playerQueryHandler> Players: " << count << std::endl;
+//            for(uint8_t i=0; i<count; i++) {
+//                std::cerr << name[i] << ' ' << score[i] << ' ' << time[i] << std::endl;
+//            }
+            updatePlayers(name, score, time);
+        }
+        else {
+            std::cerr << "<TopFrame::playerQueryHandler> parse failed.\n";
+        }
+    }
+}

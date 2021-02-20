@@ -16,6 +16,10 @@ public:
 
     virtual std::string getRequestStr() const override;
 
+    // it is a temp API. since a2s_player query usually need host replys a `challenage`
+    bool needResponse(const std::string& str);
+    bool needResponse();
+
 public:
 
     uint8_t player_count;
@@ -25,6 +29,7 @@ public:
 
 protected:
 
+    std::string challenage;
     virtual bool parse(const uint8_t* arr) override;
 
 };

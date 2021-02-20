@@ -44,6 +44,7 @@
 			<Add option="-D__GNUWIN32__" />
 			<Add option="-D__WXMSW__" />
 			<Add option="-DwxUSE_UNICODE" />
+			<Add option="-DENABLE_SUBSCRIBE" />
 			<Add directory="$(#wx314_x64.INCLUDE)" />
 			<Add directory="$(#boost.INCLUDE)" />
 			<Add directory="include" />

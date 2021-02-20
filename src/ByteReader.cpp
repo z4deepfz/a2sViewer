@@ -17,11 +17,12 @@ std::string ByteReader::String() {
 }
 
 uint16_t ByteReader::Dword() {
-//    uint16_t res;
-//    byte* p = reinterpret_cast<byte*>(&res);
-//    p[1] = *(pNow++);
-//    p[0] = *(pNow++);
-    return ntohs(readType<uint16_t>());
+    uint16_t res;
+    byte* p = reinterpret_cast<byte*>(&res);
+    p[1] = *(pNow++);
+    p[0] = *(pNow++);
+    return res;
+    //return ntohs(readType<uint16_t>());
 }
 
 uint64_t ByteReader::Ull() {
@@ -56,10 +57,14 @@ void ByteReader::reset() {
 
 bool ByteReader::Ignore(const char* arr) {
     auto&& len = strlen(arr);
-    for(size_t i=0; i<len; i++) {
-        if(*pNow != arr[i]) {
+    const uint8_t* p = reinterpret_cast<const uint8_t*>(arr);
+    decltype(pNow) tmp = pNow;
+    for(size_t i=0; i<len; i++,pNow++) {
+        if(*pNow != p[i]) {
+            pNow = tmp;
             return false;
         }
     }
+    //pNow++; // move pointer to next byte
     return true;
 }

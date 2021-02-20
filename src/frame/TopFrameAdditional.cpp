@@ -1,17 +1,39 @@
+#include <wx/listctrl.h>
 #include "TopFrame.h"
 #include "local_res.h"
 
-void TopFrame::queryInfo(const char* addr, uint16_t port) {
+void TopFrame::queryInfo(const std::string& addr, uint16_t port) {
     recv_buffer.resize(1024);
-    SendAndReceive(std::function<void(bool)>(boost::bind(receiveHandler, this, boost::placeholders::_1)),
+
+    auto&& notifier_a2s_info = boost::bind(receiveHandler, this, boost::placeholders::_1);
+
+    SendAndReceive(std::function<void(bool)>(notifier_a2s_info),
                    response.getRequestStr(),
                    &recv_buffer,
-                   addr,
-                   port);
-    //std::cerr << "<TopFrame::queryInfo> function returns.\n";
+                   addr.c_str(), port);
     return;
 }
 
+void TopFrame::queryPlayers(const std::string& addr, uint16_t port) {
+    //                      ^ since may requery, use std::string to hold address instead of const char*
+    //                        const char* is not relieable because it may be moved or destructed
+    auto h = [addr,port,this](bool success){
+        if(player_response.needResponse()) {
+//            std::cerr << "<TopFrame::queryPlayers::lambda> find a challenage. "
+//                      << "requery at " << addr << ":" << port << std::endl;
+            queryPlayers(addr.c_str(), port);
+        }
+        else {
+//            std::cerr << "<TopFrame::queryPlayers::lambda> no challenage.\n";
+            playerQueryHandler(success);
+        }
+    };
+    //auto&& notifier_a2s_player = boost::bind(playerQueryHandler, this, boost::placeholders::_1);
+    SendAndReceive(std::function<void(bool)>(h),
+                   player_response.getRequestStr(),
+                   player_response.getBufferPtr(),
+                   addr.c_str(), port);
+}
 
 void TopFrame::updateBoard(
     const wxString& server_name,
@@ -76,5 +98,18 @@ void TopFrame::subscribe() {
         // do nothing if failed
     }
 #endif // ENABLE_SUBSCRIBE
+}
+
+void TopFrame::updatePlayers(const std::vector<std::string>& name,
+                             const std::vector<int>& score,
+                             const std::vector<float>& time) {
+    list_playerlist->DeleteAllItems();
+    auto&& size = name.size();
+    for(size_t i=0; i<size; i++) {
+        auto&& id = list_playerlist->InsertItem(0, wxString::FromUTF8(name[i]));
+        list_playerlist->SetItem(id, 1, wxString::Format("%d", score[i]));
+        int sec = time[i];
+        list_playerlist->SetItem(id, 2, wxString::Format("%02d:%02d", sec/60, sec%60));
+    }
 }
 

@@ -2,12 +2,13 @@
 
 // 点击：查询按钮
 void TopFrame::OnQueryClick(wxCommandEvent& event) {
-    wxString IP = text_IP->GetValue();
+    std::string IP = static_cast<std::string>(text_IP->GetValue());
     wxString port = text_port->GetValue();
     long s32port;
     port.ToLong(&s32port);
     try {
-        queryInfo(IP.c_str(), s32port);
+        queryInfo(IP, s32port);
+        queryPlayers(IP, s32port);
     }
     catch(...) {
         // boost::asio may throws exception here

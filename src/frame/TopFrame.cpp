@@ -125,9 +125,9 @@ TopFrame::TopFrame(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSiz
 	BoxSizer3->Add(StaticBoxSizer6, 1, wxALL|wxEXPAND, 5);
 	BoxSizer1->Add(BoxSizer3, 3, wxALL|wxEXPAND, 5);
 	StaticBoxSizer9 = new wxStaticBoxSizer(wxHORIZONTAL, Panel1, _("玩家"));
-	lc_player = new wxListCtrl(Panel1, ID_LISTCTRL1, wxDefaultPosition, wxDefaultSize, wxLC_REPORT, wxDefaultValidator, _T("ID_LISTCTRL1"));
-	lc_player->SetMinSize(wxSize(100,0));
-	StaticBoxSizer9->Add(lc_player, 1, wxALL|wxEXPAND, 5);
+	list_playerlist = new wxListCtrl(Panel1, ID_LISTCTRL1, wxDefaultPosition, wxDefaultSize, wxLC_REPORT, wxDefaultValidator, _T("ID_LISTCTRL1"));
+	list_playerlist->SetMinSize(wxSize(100,0));
+	StaticBoxSizer9->Add(list_playerlist, 1, wxALL|wxEXPAND, 5);
 	BoxSizer1->Add(StaticBoxSizer9, 2, wxALL|wxEXPAND, 5);
 	text_rawData = new wxTextCtrl(Panel1, ID_TEXTCTRL3, _("(no data)"), wxDefaultPosition, wxDefaultSize, wxTE_NO_VSCROLL|wxTE_MULTILINE, wxDefaultValidator, _T("ID_TEXTCTRL3"));
 	text_rawData->Hide();
@@ -151,6 +151,10 @@ TopFrame::TopFrame(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSiz
     label_player_count->SetLabel(wxEmptyString);
     label_vac->SetLabel(wxEmptyString);
     label_keywords->SetLabel(wxEmptyString);
+
+    list_playerlist->InsertColumn(0, "名字");
+    list_playerlist->InsertColumn(1, "分数");
+    list_playerlist->InsertColumn(2, "时间");
 
     subscribe();
 
