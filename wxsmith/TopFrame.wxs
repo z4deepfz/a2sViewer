@@ -245,24 +245,6 @@
 					<border>5</border>
 					<option>2</option>
 				</object>
-				<object class="sizeritem">
-					<object class="wxTextCtrl" name="ID_TEXTCTRL3" variable="text_rawData" member="yes">
-						<value>(no data)</value>
-						<hidden>1</hidden>
-						<font>
-							<size>10</size>
-							<style>normal</style>
-							<weight>normal</weight>
-							<underlined>0</underlined>
-							<family>swiss</family>
-							<face>Consolas</face>
-						</font>
-						<style>wxTE_NO_VSCROLL|wxTE_MULTILINE</style>
-					</object>
-					<flag>wxALL|wxEXPAND</flag>
-					<border>5</border>
-					<option>1</option>
-				</object>
 			</object>
 		</object>
 	</object>

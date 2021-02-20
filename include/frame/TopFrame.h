@@ -53,7 +53,6 @@ class TopFrame: public wxFrame
 		wxStaticText* label_vac;
 		wxTextCtrl* text_IP;
 		wxTextCtrl* text_port;
-		wxTextCtrl* text_rawData;
 		//*)
 
 	protected:
@@ -72,7 +71,6 @@ class TopFrame: public wxFrame
 		static const long ID_STATICTEXT6;
 		static const long ID_STATICTEXT7;
 		static const long ID_LISTCTRL1;
-		static const long ID_TEXTCTRL3;
 		static const long ID_PANEL1;
 		//*)
 

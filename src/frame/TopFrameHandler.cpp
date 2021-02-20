@@ -20,7 +20,7 @@ void TopFrame::receiveHandler(bool success) {
     //std::cerr << "<TopFrame::receiveHandler> buffer_size=" << recv_buffer.size() << std::endl;
     if(success) {
         response.Parse(recv_buffer.c_str());
-        text_rawData->ChangeValue(convertByteToHexString(recv_buffer));
+        //text_rawData->ChangeValue(convertByteToHexString(recv_buffer)); // (deprecated)
         Refresh();
     }
     else {

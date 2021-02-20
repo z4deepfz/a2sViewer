@@ -36,7 +36,6 @@ const long TopFrame::ID_STATICTEXT5 = wxNewId();
 const long TopFrame::ID_STATICTEXT6 = wxNewId();
 const long TopFrame::ID_STATICTEXT7 = wxNewId();
 const long TopFrame::ID_LISTCTRL1 = wxNewId();
-const long TopFrame::ID_TEXTCTRL3 = wxNewId();
 const long TopFrame::ID_PANEL1 = wxNewId();
 //*)
 
@@ -129,11 +128,6 @@ TopFrame::TopFrame(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSiz
 	list_playerlist->SetMinSize(wxSize(100,0));
 	StaticBoxSizer9->Add(list_playerlist, 1, wxALL|wxEXPAND, 5);
 	BoxSizer1->Add(StaticBoxSizer9, 2, wxALL|wxEXPAND, 5);
-	text_rawData = new wxTextCtrl(Panel1, ID_TEXTCTRL3, _("(no data)"), wxDefaultPosition, wxDefaultSize, wxTE_NO_VSCROLL|wxTE_MULTILINE, wxDefaultValidator, _T("ID_TEXTCTRL3"));
-	text_rawData->Hide();
-	wxFont text_rawDataFont(10,wxFONTFAMILY_SWISS,wxFONTSTYLE_NORMAL,wxFONTWEIGHT_NORMAL,false,_T("Consolas"),wxFONTENCODING_DEFAULT);
-	text_rawData->SetFont(text_rawDataFont);
-	BoxSizer1->Add(text_rawData, 1, wxALL|wxEXPAND, 5);
 	Panel1->SetSizer(BoxSizer1);
 	BoxSizer1->Fit(Panel1);
 	BoxSizer1->SetSizeHints(Panel1);
