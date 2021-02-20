@@ -32,7 +32,7 @@ void TopFrame::receiveHandler(bool success) {
 
 // HTTP请求的handler
 void TopFrame::quickQueryReceiveHandler(bool success) {
-    std::cerr << "<TopFrame::quickQueryReceiveHandler> handler called.\n";
+    //std::cerr << "<TopFrame::quickQueryReceiveHandler> handler called.\n";
     // When this function called, there was a full HTTP request inside buffer
     // so before parsing, cut HTTP head
     if(success) {
@@ -58,7 +58,7 @@ void TopFrame::quickQueryReceiveHandler(bool success) {
 
 // 查询玩家列表的请求handler
 void TopFrame::playerQueryHandler(bool success) {
-    std::cerr << "<TopFrame::playerQueryHandler> handler called.\n";
+    //std::cerr << "<TopFrame::playerQueryHandler> handler called.\n";
     if(success) {
         // challenage problem has been solved at caller
         // so ignore challenage here
@@ -75,7 +75,7 @@ void TopFrame::playerQueryHandler(bool success) {
             updatePlayers(name, score, time);
         }
         else {
-            std::cerr << "<TopFrame::playerQueryHandler> parse failed.\n";
+            //std::cerr << "<TopFrame::playerQueryHandler> parse failed.\n";
         }
     }
 }
