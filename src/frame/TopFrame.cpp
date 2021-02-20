@@ -150,7 +150,8 @@ TopFrame::TopFrame(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSiz
 	BoxSizer1->Fit(Panel1);
 	BoxSizer1->SetSizeHints(Panel1);
 
-	Connect(ID_BUTTON2,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&TopFrame::OnDeleteConfig);
+	Connect(ID_BUTTON2,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&TopFrame::OnSaveConfig);
+	Connect(ID_BUTTON3,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&TopFrame::OnDeleteConfig);
 	Connect(ID_CHOICE1,wxEVT_COMMAND_CHOICE_SELECTED,(wxObjectEventFunction)&TopFrame::OnquickQuerySelect);
 	Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&TopFrame::OnQueryClick);
 	//*)

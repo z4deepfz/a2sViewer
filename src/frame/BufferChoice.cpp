@@ -15,7 +15,8 @@ SmartClientData<T>* copy_to_heap(T obj)
 
 void BufferChoice::Refresh() {
     // remove all them first
-    Clear();
+    Clear(); // It's safe, because class `SmartClientData` will free them
+
     // them refill it
     for(auto&& item: buffer) { // not append to GUI yet, insert to buffer first
         auto&& p = copy_to_heap(item);

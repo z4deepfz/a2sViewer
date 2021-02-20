@@ -79,7 +79,7 @@
 										<object class="sizeritem">
 											<object class="wxButton" name="ID_BUTTON2" variable="Button1" member="yes">
 												<label>保存</label>
-												<handler function="OnDeleteConfig" entry="EVT_BUTTON" />
+												<handler function="OnSaveConfig" entry="EVT_BUTTON" />
 											</object>
 											<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 											<border>5</border>
@@ -88,6 +88,7 @@
 										<object class="sizeritem">
 											<object class="wxButton" name="ID_BUTTON3" variable="Button2" member="yes">
 												<label>删除</label>
+												<handler function="OnDeleteConfig" entry="EVT_BUTTON" />
 											</object>
 											<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 											<border>5</border>

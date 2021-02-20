@@ -20,9 +20,6 @@ class BufferChoice: public wxChoice
 
         quickQuery* GetClientData(int sel);
 
-        // official document says it will delete client data automatically..
-        // so I don't need to delete them manually
-        //void DeleteAllItems();
 };
 
 #endif // BUFFERCHOICE_H
