@@ -36,7 +36,7 @@ bool LocalDataManager::LoadAll() {
         bool suc = true;
         wxFile f; // out of loop, it would close() and destruct
         if(wxFileExists(fn)) { // if file exists, load it. Or just created it.
-            std::cerr << "<LocalDataManager::LoadAll> Opening " << fn << std::endl;
+            //std::cerr << "<LocalDataManager::LoadAll> Opening " << fn << std::endl;
             if(f.Open(fn, wxFile::read)) {
                 // read successfully, invoke `storageLoad` to let the object load from string
                 auto&& len = f.Length();
@@ -82,7 +82,7 @@ bool LocalDataManager::SaveAll() {
         auto&& fn = prefix + obj.Identifier() + ".conf";
         wxFile f(fn, wxFile::OpenMode::write);
         auto&& str_to_save = obj.storageSave();
-        std::cerr << "<LocalDataManager::SaveAll> Saving:\n\t" << str_to_save << std::endl;
+        //std::cerr << "<LocalDataManager::SaveAll> Saving:\n\t" << str_to_save << std::endl;
         flag &= f.Write(str_to_save.c_str(), str_to_save.size());
     }
     return flag;

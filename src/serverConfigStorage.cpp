@@ -12,7 +12,7 @@ serverConfigStorage::~serverConfigStorage() {
 
 bool serverConfigStorage::storageLoad(const std::string& storage) {
     // use json to save data
-    std::cerr << "<serverConfigStorage::storageLoad> Loading...\n";
+//    std::cerr << "<serverConfigStorage::storageLoad> Loading...\n";
     if(storage.size() > 0) {
         try {
             auto&& j = nlohmann::json::parse(storage);
@@ -26,12 +26,12 @@ bool serverConfigStorage::storageLoad(const std::string& storage) {
             return false;
         }
     }
-    std::cerr << "<serverConfigStorage::storageLoad> successful\n";
+//    std::cerr << "<serverConfigStorage::storageLoad> successful\n";
     return true;
 }
 
 std::string serverConfigStorage::storageSave() {
-    std::cerr << "<serverConfigStorage::storageSave> data size: " << data.size() << std::endl;
+//    std::cerr << "<serverConfigStorage::storageSave> data size: " << data.size() << std::endl;
     nlohmann::json j = data;
     return j.dump();
 }

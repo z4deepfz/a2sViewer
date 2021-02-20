@@ -49,7 +49,7 @@ void TopFrame::OnSaveConfig(wxCommandEvent& event) {
     conf.port = val;
 
     local.insert(conf);
-    std::cerr << "<TopFrame::OnSaveConfig> Current local storage size: " << local.size() << std::endl;
+    //std::cerr << "<TopFrame::OnSaveConfig> Current local storage size: " << local.size() << std::endl;
 
     // for quicker, insert to choice.buffer and refresh directly
     choice_quickQuery->buffer.insert(conf);
