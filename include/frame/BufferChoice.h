@@ -16,6 +16,8 @@ class BufferChoice: public wxChoice
 
         std::set<quickQuery> buffer;
         void Refresh();
+
+        quickQuery* GetClientData(int sel);
 };
 
 #endif // BUFFERCHOICE_H

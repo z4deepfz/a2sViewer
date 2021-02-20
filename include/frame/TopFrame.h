@@ -40,6 +40,7 @@ class TopFrame: public wxFrame
 		virtual ~TopFrame();
 
 		void Refresh();
+		void loadChoice();
 		void queryInfo(const std::string& addr, uint16_t port);
 		void queryPlayers(const std::string& addr, uint16_t port, uint8_t retry=5); // 5 times retry
 
@@ -60,8 +61,8 @@ class TopFrame: public wxFrame
 		wxStaticText* label_player_count;
 		wxStaticText* label_servername;
 		wxStaticText* label_vac;
-		wxTextCtrl* TextCtrl1;
 		wxTextCtrl* text_IP;
+		wxTextCtrl* text_name;
 		wxTextCtrl* text_port;
 		//*)
 
@@ -133,7 +134,7 @@ class TopFrame: public wxFrame
 
     protected: // about qiuck query
 
-        std::set<quickQuery> online, local, listctrl_buffer;
+        std::set<quickQuery> remote, local, listctrl_buffer;
 
     protected:
 

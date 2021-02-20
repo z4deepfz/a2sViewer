@@ -89,8 +89,8 @@ TopFrame::TopFrame(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSiz
 	BoxSizer6 = new wxBoxSizer(wxHORIZONTAL);
 	StaticText4 = new wxStaticText(Panel1, ID_STATICTEXT9, _("名称"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT9"));
 	BoxSizer6->Add(StaticText4, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-	TextCtrl1 = new wxTextCtrl(Panel1, ID_TEXTCTRL3, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_TEXTCTRL3"));
-	BoxSizer6->Add(TextCtrl1, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+	text_name = new wxTextCtrl(Panel1, ID_TEXTCTRL3, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_TEXTCTRL3"));
+	BoxSizer6->Add(text_name, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	StaticBoxSizer1->Add(BoxSizer6, 1, wxALL|wxEXPAND, 0);
 	BoxSizer7 = new wxBoxSizer(wxHORIZONTAL);
 	Button1 = new wxButton(Panel1, ID_BUTTON2, _("保存"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON2"));

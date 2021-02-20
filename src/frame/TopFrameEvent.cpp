@@ -24,11 +24,12 @@ void TopFrame::OnQueryClick(wxCommandEvent& event) {
 // when quick query selection selected, fill its property to IP and port
 void TopFrame::OnquickQuerySelect(wxCommandEvent& event) {
     auto sel = choice_quickQuery->GetSelection();
-    const quickQuery* psel = static_cast<quickQuery*>(choice_quickQuery->GetClientData(sel));
+    const quickQuery* psel = choice_quickQuery->GetClientData(sel);
     if(psel != nullptr) {
         const quickQuery& rsel = *psel;
         text_IP->ChangeValue(rsel.addr);
         text_port->ChangeValue(wxString::Format("%u", rsel.port));
+        text_name->ChangeValue(wxString::FromUTF8(rsel.name));
     }
     else {
         wxMessageBox("null pointer to selection.", "Unexpceted Exception");
@@ -39,12 +40,26 @@ void TopFrame::OnquickQuerySelect(wxCommandEvent& event) {
 
 // 按钮：保存配置
 void TopFrame::OnSaveConfig(wxCommandEvent& event) {
+    long val;
+    text_port->GetValue().ToLong(&val);
 
+    quickQuery conf;
+    conf.name = text_name->GetValue();
+    conf.addr = text_IP->GetValue();
+    conf.port = val;
+
+    local.insert(conf);
+
+    // for quicker, insert to choice.buffer and refresh directly
+    choice_quickQuery->buffer.insert(conf);
+    choice_quickQuery->Refresh();
 }
 
 
 
 // 按钮：删除配置（按照名称，仅从本地修改）
 void TopFrame::OnDeleteConfig(wxCommandEvent& event) {
-
+    quickQuery conf;
+    conf.name = text_name->GetValue();
+    local.erase(conf);
 }
