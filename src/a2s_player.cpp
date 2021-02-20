@@ -55,6 +55,7 @@ bool a2s_player::needResponse(const std::string& str) {
         return true;
     }
     else {
+        challenage.clear();
         return false;
     }
 }
