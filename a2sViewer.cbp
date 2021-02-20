@@ -32,6 +32,10 @@
 				<Linker>
 					<Add option="-s" />
 				</Linker>
+				<ExtraCommands>
+					<Add after="rm bin/release/a2sViewer_upx.exe" />
+					<Add after="upx --best bin/release/a2sViewer.exe -o bin/release/a2sViewer_upx.exe" />
+				</ExtraCommands>
 			</Target>
 		</Build>
 		<Compiler>
