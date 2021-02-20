@@ -1,3 +1,7 @@
+/**
+    This cpp file only used for wxSmith to construct GUI
+    Shouldn't edit it if not necessary expect modify the procedure when constructing
+*/
 #include "TopFrame.h"
 #include "functional.h"
 #include "unit_test.h"
@@ -137,13 +141,16 @@ TopFrame::TopFrame(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSiz
 	Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&TopFrame::OnQueryClick);
 	//*)
 
+
+
+	// following are custom code. Don't change the above lines.
+
     label_servername->SetLabel(wxEmptyString);
     label_mapname->SetLabel(wxEmptyString);
     label_player_count->SetLabel(wxEmptyString);
     label_vac->SetLabel(wxEmptyString);
     label_keywords->SetLabel(wxEmptyString);
 
-    //unit_test::test_json();
     subscribe();
 
 }
