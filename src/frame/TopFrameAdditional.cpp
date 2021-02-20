@@ -1,14 +1,5 @@
-#include <wx/wx.h>
-#include <wx/app.h>
 #include "TopFrame.h"
-
-void TopFrame::OnQueryClick(wxCommandEvent& event) {
-    wxString IP = text_IP->GetValue();
-    wxString port = text_port->GetValue();
-    long s32port;
-    port.ToLong(&s32port);
-    queryInfo(IP.c_str(), s32port);
-}
+#include "local_res.h"
 
 void TopFrame::queryInfo(const char* addr, uint16_t port) {
     recv_buffer.resize(1024);
@@ -20,20 +11,6 @@ void TopFrame::queryInfo(const char* addr, uint16_t port) {
     //std::cerr << "<TopFrame::queryInfo> function returns.\n";
     return;
 }
-
-void TopFrame::receiveHandler(bool success) {
-    //std::cerr << "<TopFrame::receiveHandler> receive handler called.\n";
-    //std::cerr << "<TopFrame::receiveHandler> buffer_size=" << recv_buffer.size() << std::endl;
-    if(success) {
-        response.Parse(recv_buffer.c_str());
-        text_rawData->ChangeValue(convertByteToHexString(recv_buffer));
-        Refresh();
-    }
-    else {
-        wxMessageBox("查询失败", "Failed");
-    }
-}
-
 
 
 void TopFrame::updateBoard(
@@ -82,5 +59,15 @@ void TopFrame::updateBoard(
 
 void TopFrame::Refresh() {
     updateBoard(getNeededAttributesFromA2sResponse(response));
+}
+
+
+void TopFrame::subscribe() {
+    auto&& callbak =  std::bind(quickQueryReceiveHandler, this, std::placeholders::_1);
+    HTTPSendAndReceive(std::function<void(bool)>(callbak),
+                   sub_response.getRequestStr(),
+                   sub_response.getBufferPointer(),
+                   local_res::addr,
+                   local_res::port);
 }
 

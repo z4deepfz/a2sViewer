@@ -1,4 +1,5 @@
 #include <cstring>
+#include <windows.h>
 #include <ByteReader.h>
 
 using byte = ByteReader::byte;
@@ -16,11 +17,11 @@ std::string ByteReader::String() {
 }
 
 uint16_t ByteReader::Dword() {
-    uint16_t res;
-    byte* p = reinterpret_cast<byte*>(&res);
-    p[1] = *(pNow++);
-    p[0] = *(pNow++);
-    return res;
+//    uint16_t res;
+//    byte* p = reinterpret_cast<byte*>(&res);
+//    p[1] = *(pNow++);
+//    p[0] = *(pNow++);
+    return ntohs(readType<uint16_t>());
 }
 
 uint64_t ByteReader::Ull() {

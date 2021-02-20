@@ -113,7 +113,8 @@
 		<Unit filename="src/basic_response.cpp" />
 		<Unit filename="src/frame/TopFrame.cpp" />
 		<Unit filename="src/frame/TopFrameAdditional.cpp" />
-		<Unit filename="src/frame/Top_wxChoice.cpp" />
+		<Unit filename="src/frame/TopFrameEvent.cpp" />
+		<Unit filename="src/frame/TopFrameHandler.cpp" />
 		<Unit filename="src/functional.cpp" />
 		<Unit filename="src/local_res.cpp" />
 		<Unit filename="src/query.cpp" />

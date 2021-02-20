@@ -1,12 +1,16 @@
 #ifndef TOPFRAME_H
 #define TOPFRAME_H
 
+#include <memory>
+
+#include <boost/asio.hpp>
+
+#include <wx/wx.h>
+#include <wx/app.h>
+#include <wx/msgdlg.h>
+
 #include "query.h"
 #include "a2s_info_l4d2.h"
-#include <boost/asio.hpp>
-//#include <boost/timer/timer.hpp>
-#include <wx/msgdlg.h>
-#include <memory>
 #include "QuickQuerySubscribe.h"
 
 //(*Headers(TopFrame)

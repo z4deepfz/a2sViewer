@@ -36,7 +36,7 @@ protected:
         const T* p = reinterpret_cast<const T*>(pNow);
         T val = *p;
         p++;
-        pNow = reinterpret_cast<decltype(pNow)>(pNow);
+        pNow = reinterpret_cast<decltype(pNow)>(p);
         return val;
     }
 
