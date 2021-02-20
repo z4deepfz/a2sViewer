@@ -18,6 +18,7 @@
 // storage
 #include "LocalDataManager.h"
 #include "serverConfigStorage.h"
+#include "BufferChoice.h"
 
 //(*Headers(TopFrame)
 #include <wx/frame.h>
@@ -44,18 +45,22 @@ class TopFrame: public wxFrame
 
 
 		//(*Declarations(TopFrame)
+		BufferChoice* choice_quickQuery;
+		wxButton* Button1;
+		wxButton* Button2;
 		wxButton* button_query;
-		wxChoice* choice_quickQuery;
 		wxListCtrl* list_playerlist;
 		wxPanel* Panel1;
 		wxStaticText* StaticText1;
 		wxStaticText* StaticText2;
 		wxStaticText* StaticText3;
+		wxStaticText* StaticText4;
 		wxStaticText* label_keywords;
 		wxStaticText* label_mapname;
 		wxStaticText* label_player_count;
 		wxStaticText* label_servername;
 		wxStaticText* label_vac;
+		wxTextCtrl* TextCtrl1;
 		wxTextCtrl* text_IP;
 		wxTextCtrl* text_port;
 		//*)
@@ -67,6 +72,10 @@ class TopFrame: public wxFrame
 		static const long ID_TEXTCTRL1;
 		static const long ID_STATICTEXT2;
 		static const long ID_TEXTCTRL2;
+		static const long ID_STATICTEXT9;
+		static const long ID_TEXTCTRL3;
+		static const long ID_BUTTON2;
+		static const long ID_BUTTON3;
 		static const long ID_CHOICE1;
 		static const long ID_BUTTON1;
 		static const long ID_STATICTEXT8;
@@ -84,6 +93,8 @@ class TopFrame: public wxFrame
 		//(*Handlers(TopFrame)
 		void OnQueryClick(wxCommandEvent& event);
 		void OnquickQuerySelect(wxCommandEvent& event);
+		void OnSaveConfig(wxCommandEvent& event);
+		void OnDeleteConfig(wxCommandEvent& event);
 		//*)
 
 		DECLARE_EVENT_TABLE()

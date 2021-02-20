@@ -35,3 +35,16 @@ void TopFrame::OnquickQuerySelect(wxCommandEvent& event) {
     }
 }
 
+
+
+// 按钮：保存配置
+void TopFrame::OnSaveConfig(wxCommandEvent& event) {
+
+}
+
+
+
+// 按钮：删除配置（按照名称，仅从本地修改）
+void TopFrame::OnDeleteConfig(wxCommandEvent& event) {
+
+}
