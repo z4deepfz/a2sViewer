@@ -98,6 +98,7 @@
 		<Unit filename="include/IO.h" />
 		<Unit filename="include/LocalDataManager.h" />
 		<Unit filename="include/QuickQuerySubscribe.h" />
+		<Unit filename="include/SmartClientData.h" />
 		<Unit filename="include/a2s_info_l4d2.h" />
 		<Unit filename="include/a2s_player.h" />
 		<Unit filename="include/basic_StorageObject.h" />

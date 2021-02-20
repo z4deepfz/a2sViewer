@@ -131,7 +131,7 @@ void TopFrame::clearAll() {
 }
 
 
-void TopFrame::loadChoice() {
+void TopFrame::loadConfigToChoiceBox() {
     auto& choice = *choice_quickQuery;
     auto tmp = local;
     tmp.insert(remote.begin(), remote.end());

@@ -40,7 +40,7 @@ class TopFrame: public wxFrame
 		virtual ~TopFrame();
 
 		void Refresh();
-		void loadChoice();
+		void loadConfigToChoiceBox();
 		void queryInfo(const std::string& addr, uint16_t port);
 		void queryPlayers(const std::string& addr, uint16_t port, uint8_t retry=5); // 5 times retry
 
@@ -134,7 +134,7 @@ class TopFrame: public wxFrame
 
     protected: // about qiuck query
 
-        std::set<quickQuery> remote, local, listctrl_buffer;
+        std::set<quickQuery> remote, local;
 
     protected:
 

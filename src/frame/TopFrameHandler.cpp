@@ -35,11 +35,12 @@ void TopFrame::quickQueryReceiveHandler(bool success) {
 //            auto&& p = move_to_heap(item);
 //            auto&& name = item.name;
 //            choice_quickQuery->Append(wxString::FromUTF8(name), p);
-            listctrl_buffer.insert(item);
+            remote.insert(item);
         }
 
 //        choice_quickQuery->SetSelection(0);
 //        choice_quickQuery->Enable(true);
+        loadConfigToChoiceBox();
     }
     else {
         wxMessageBox("订阅失败", "Failed");
