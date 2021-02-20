@@ -2,6 +2,7 @@
 #define TOPFRAME_H
 
 #include <memory>
+#include <set>
 
 #include <boost/asio.hpp>
 
@@ -13,6 +14,10 @@
 #include "a2s_info_l4d2.h"
 #include "a2s_player.h"
 #include "QuickQuerySubscribe.h"
+
+// storage
+#include "LocalDataManager.h"
+#include "serverConfigStorage.h"
 
 //(*Headers(TopFrame)
 #include <wx/frame.h>
@@ -114,6 +119,15 @@ class TopFrame: public wxFrame
         a2s_player              player_response;
 
         std::string recv_buffer;
+
+    protected: // about qiuck query
+
+        std::set<quickQuery> online, local, listctrl_buffer;
+
+    protected:
+
+        LocalDataManager local_manager;
+            serverConfigStorage server_conf_proxy;
 
 
 

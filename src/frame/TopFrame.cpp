@@ -146,6 +146,10 @@ TopFrame::TopFrame(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSiz
     list_playerlist->InsertColumn(1, "分数");
     list_playerlist->InsertColumn(2, "时间");
 
+    local_manager.addStorageObject(&server_conf_proxy);
+
+    local_manager.LoadAll();
+
     subscribe();
 
 }
@@ -154,5 +158,7 @@ TopFrame::~TopFrame()
 {
 	//(*Destroy(TopFrame)
 	//*)
+
+	local_manager.SaveAll();
 }
 

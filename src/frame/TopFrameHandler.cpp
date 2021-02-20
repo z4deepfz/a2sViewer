@@ -3,17 +3,6 @@
 #include "local_res.h"
 
 
-//////////// assistant function ////////////
-template<typename T>
-T* move_to_heap(T obj)
-{
-    auto&& p = new T(obj);
-    return p;
-}
-////////////////////////////////////////////
-
-
-
 // a2s协议查询的handler
 void TopFrame::receiveHandler(bool success) {
     //std::cerr << "<TopFrame::receiveHandler> receive handler called.\n";
@@ -42,14 +31,15 @@ void TopFrame::quickQueryReceiveHandler(bool success) {
         // finally parse the json string
         auto&& result = sub_response.Parse();
 
-        for(auto&& item: result) {
-            auto&& p = move_to_heap(item);
-            auto&& name = item.name;
-            choice_quickQuery->Append(wxString::FromUTF8(name), p);
+        for(auto&& item: result) { // not append to GUI yet, insert to buffer first
+//            auto&& p = move_to_heap(item);
+//            auto&& name = item.name;
+//            choice_quickQuery->Append(wxString::FromUTF8(name), p);
+            listctrl_buffer.insert(item);
         }
 
-        choice_quickQuery->SetSelection(0);
-        choice_quickQuery->Enable(true);
+//        choice_quickQuery->SetSelection(0);
+//        choice_quickQuery->Enable(true);
     }
     else {
         wxMessageBox("订阅失败", "Failed");
