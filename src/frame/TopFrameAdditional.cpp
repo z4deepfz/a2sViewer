@@ -14,17 +14,22 @@ void TopFrame::queryInfo(const std::string& addr, uint16_t port) {
     return;
 }
 
-void TopFrame::queryPlayers(const std::string& addr, uint16_t port) {
+void TopFrame::queryPlayers(const std::string& addr, uint16_t port, uint8_t retry) {
     //                      ^ since may requery, use std::string to hold address instead of const char*
     //                        const char* is not relieable because it may be moved or destructed
-    auto h = [addr,port,this](bool success){
+
+    // because query might failed, so use following lambda expression to handle `challenage`
+    // origin handler would be invoked inside.
+    auto h = [addr,port,retry,this](bool success){
         if(player_response.needResponse()) {
-//            std::cerr << "<TopFrame::queryPlayers::lambda> find a challenage. "
-//                      << "requery at " << addr << ":" << port << std::endl;
-            queryPlayers(addr.c_str(), port);
+            if(retry > 0) {
+                queryPlayers(addr.c_str(), port, retry-1);
+            }
+            else { // if 3 retries failed, don't retry again!
+                playerQueryHandler(false);
+            }
         }
         else {
-//            std::cerr << "<TopFrame::queryPlayers::lambda> no challenage.\n";
             playerQueryHandler(success);
         }
     };

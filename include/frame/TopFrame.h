@@ -35,7 +35,7 @@ class TopFrame: public wxFrame
 
 		void Refresh();
 		void queryInfo(const std::string& addr, uint16_t port);
-		void queryPlayers(const std::string& addr, uint16_t port);
+		void queryPlayers(const std::string& addr, uint16_t port, uint8_t retry=5); // 5 times retry
 
 
 		//(*Declarations(TopFrame)
