@@ -85,6 +85,7 @@ class TopFrame: public wxFrame
 
 	protected:
 
+        void clearAll();
         void updateBoard(
             const wxString& server_name,
             const wxString& map_name,

@@ -108,7 +108,6 @@ void TopFrame::subscribe() {
 void TopFrame::updatePlayers(const std::vector<std::string>& name,
                              const std::vector<int>& score,
                              const std::vector<float>& time) {
-    list_playerlist->DeleteAllItems();
     auto&& size = name.size();
     for(size_t i=0; i<size; i++) {
         auto&& id = list_playerlist->InsertItem(0, wxString::FromUTF8(name[i]));
@@ -116,5 +115,14 @@ void TopFrame::updatePlayers(const std::vector<std::string>& name,
         int sec = time[i];
         list_playerlist->SetItem(id, 2, wxString::Format("%02d:%02d", sec/60, sec%60));
     }
+}
+
+void TopFrame::clearAll() {
+    label_servername->SetLabel(wxEmptyString);
+    label_mapname->SetLabel(wxEmptyString);
+    label_player_count->SetLabel(wxEmptyString);
+    label_vac->SetLabel(wxEmptyString);
+    label_keywords->SetLabel(wxEmptyString);
+    list_playerlist->DeleteAllItems();
 }
 

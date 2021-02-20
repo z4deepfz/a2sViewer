@@ -6,6 +6,7 @@ void TopFrame::OnQueryClick(wxCommandEvent& event) {
     wxString port = text_port->GetValue();
     long s32port;
     port.ToLong(&s32port);
+    clearAll();
     try {
         queryInfo(IP, s32port);
         queryPlayers(IP, s32port);

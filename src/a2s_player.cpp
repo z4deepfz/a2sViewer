@@ -42,10 +42,10 @@ bool a2s_player::parse(const uint8_t* arr) {
 
 bool a2s_player::needResponse(const std::string& str) {
     ByteReader read(reinterpret_cast<const uint8_t*>(str.c_str())); // load response to byte reader
-    for(int i: str) {
-        std::cerr << i << ' ';
-    }
-    std::cerr << std::endl;
+//    for(int i: str) {
+//        std::cerr << i << ' ';
+//    }
+//    std::cerr << std::endl;
     // if first byte == 'A'(0x41), client should replys a challenage
     if(read.Ignore("\xff\xff\xff\xff\x41")) {
         for(int i=0; i<4; i++) {
@@ -55,6 +55,7 @@ bool a2s_player::needResponse(const std::string& str) {
         return true;
     }
     else {
+        challenage.clear();
         return false;
     }
 }

@@ -74,7 +74,7 @@ public:
     }
 
     void run(const std::string& request) {
-        std::cerr << "<AsyncIO::run> run.\n";
+//        std::cerr << "<AsyncIO::run> run.\n";
         auto pThis = this->shared_from_this();
         // set socket params
         socket.async_send(boost::asio::buffer(request),
@@ -89,11 +89,11 @@ public:
         // 一个简单粗暴的方法，把阻塞的函数放到线程中调用
         // 反正std::shared_ptr过去了，应该不会发生提早析构的问题
         // context.run()执行完后线程应该会自动析构
-        std::thread t([this](){
-                      auto&& val = context.run();
-                      std::cerr << "<AsyncIO::run::thread> tasks finished: "
-                                << val
-                                << std::endl;} );
+        std::thread t(
+            [this](){
+                context.run();
+            }
+        );
         t.detach();
     }
 
@@ -102,10 +102,10 @@ protected:
     void sendHandler(std::shared_ptr<AsyncIO> pThis,
                      const boost::system::error_code& error,
                      std::size_t bytes_transferred) {
-            std::cerr << "<AsyncIO::sendHandler> send handler called: ";
+//            std::cerr << "<AsyncIO::sendHandler> send handler called: ";
             // start receive
             if(!error) {
-                std::cerr << "success.\n";
+//                std::cerr << "success.\n";
                 auto buffer = boost::asio::buffer(*pBuffer, pBuffer->size());
                 auto handler = boost::bind(receiveHandler,
                                            this,
@@ -115,7 +115,7 @@ protected:
                 socket.async_receive(buffer, handler);
             }
             else {
-                std::cerr << "failed.\n";
+//                std::cerr << "failed.\n";
             }
     }
 
@@ -124,9 +124,9 @@ protected:
                         std::size_t bytes_transferred) {
             // call notify_func
             // and return. shared_ptr would destruct itself. Genius
-            std::cerr << "<AsyncIO::receiveHandler> receive handler called: ";
+//            std::cerr << "<AsyncIO::receiveHandler> receive handler called: ";
             if(!error) {
-                std::cerr << "success.\n";
+//                std::cerr << "success.\n";
                 pBuffer->resize(bytes_transferred);
                 notify_func(true);
                 timer.cancel();
@@ -134,7 +134,7 @@ protected:
             }
             else {
                 notify_func(false);
-                std::cerr << "failed.\n";
+//                std::cerr << "failed.\n";
             }
     }
 

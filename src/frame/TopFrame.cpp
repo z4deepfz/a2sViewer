@@ -140,11 +140,7 @@ TopFrame::TopFrame(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSiz
 
 	// following are custom code. Don't change the above lines.
 
-    label_servername->SetLabel(wxEmptyString);
-    label_mapname->SetLabel(wxEmptyString);
-    label_player_count->SetLabel(wxEmptyString);
-    label_vac->SetLabel(wxEmptyString);
-    label_keywords->SetLabel(wxEmptyString);
+	clearAll();
 
     list_playerlist->InsertColumn(0, "名字");
     list_playerlist->InsertColumn(1, "分数");

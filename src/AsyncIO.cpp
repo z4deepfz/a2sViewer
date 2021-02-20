@@ -11,7 +11,7 @@ void SendAndReceive(std::function<void(bool)> notify_func,
     auto endpoint = genUdpEndpoint(addr, port);
     auto p = std::make_shared<AsyncIO<boost::asio::ip::udp>>(notify_func, buffer, endpoint);
     p->run(msg);
-    std::cerr << "<TopFrame::queryInfo> function returns.\n";
+//    std::cerr << "<TopFrame::queryInfo> function returns.\n";
 }
 
 
@@ -25,5 +25,4 @@ void HTTPSendAndReceive(std::function<void(bool)> notify_func,
     p->run(msg);
     return;
 }
-
 int global_cnt::asyncIO = 0;
