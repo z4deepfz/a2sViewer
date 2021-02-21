@@ -24,7 +24,8 @@ void BufferChoice::Refresh() {
         this->Append(wxString::FromUTF8(name), p);
     }
     this->SetSelection(0);
-    this->Enable(true);
+
+    this->Enable(GetCount()>0); // only if has record, choiceBox would be enabled
 }
 
 

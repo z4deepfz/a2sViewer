@@ -107,7 +107,7 @@ TopFrame::TopFrame(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSiz
 	BoxSizer2->Add(StaticBoxSizer8, 1, wxALL|wxEXPAND, 5);
 	button_query = new wxButton(Panel1, ID_BUTTON1, _("查询"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON1"));
 	BoxSizer2->Add(button_query, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxSHAPED, 5);
-	StaticText3 = new wxStaticText(Panel1, ID_STATICTEXT8, _("ver 0.4"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT8"));
+	StaticText3 = new wxStaticText(Panel1, ID_STATICTEXT8, _("ver 0.4a"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT8"));
 	BoxSizer2->Add(StaticText3, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	BoxSizer1->Add(BoxSizer2, 2, wxALL|wxEXPAND, 5);
 	BoxSizer3 = new wxBoxSizer(wxVERTICAL);
@@ -169,10 +169,10 @@ TopFrame::TopFrame(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSiz
 
     local_manager.addStorageObject(&server_conf_proxy);
 
-    local_manager.LoadAll();
+    local_manager.LoadAll();    // load from local storage
+    subscribe();                // subscribe from remote
 
-    subscribe();
-
+    loadConfigToChoiceBox();
 }
 
 TopFrame::~TopFrame()
