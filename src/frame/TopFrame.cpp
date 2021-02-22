@@ -191,10 +191,9 @@ TopFrame::~TopFrame()
 
 	local_manager.SaveAll();
 	std::cerr << "<TopFrame> frame destructed.\n";
+// TODO (Ryan#1#): 如何让TopFrame正确关闭整个程序（包括MainApp）
 
-	// get ptr of singleton `MainApp`, reinterupt it into base class `wxApp`
-	// and call `ExitMainLoop` to quit whole program
-	// I temprory can't find better way to do it.
-	wxGetApp().ExitMainLoop();
+	// let app shut down after frame destoryed
+	//wxGetApp().ExitMainLoop();
 }
 

@@ -29,5 +29,9 @@ bool MainApp::OnInit()
     taskbar = std::make_shared<TaskBarIcon>(frame); // give frame ptr
     taskbar->SetIcon(wxIcon(wxT("aaaa"))); // set icon
 
+    // exit program when TopFrame quit
+    SetExitOnFrameDelete(true);
+    std::cerr << "<MainApp::OnInit>" << (GetTopWindow() == frame) << std::endl;
+
     return true;
 }
