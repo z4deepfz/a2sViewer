@@ -131,7 +131,7 @@
 						</object>
 						<object class="sizeritem">
 							<object class="wxStaticText" name="ID_STATICTEXT8" variable="StaticText3" member="yes">
-								<label>ver 0.4a</label>
+								<label>ver 0.4</label>
 							</object>
 							<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 							<border>5</border>

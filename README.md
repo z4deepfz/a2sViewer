@@ -1,4 +1,4 @@
-# a2sViewer v0.4a
+# a2sViewer v0.4
 
 A tool to query for A2S_INFO and other info that a2s protocal support.
 
