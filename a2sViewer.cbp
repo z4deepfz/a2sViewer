@@ -53,6 +53,7 @@
 			<Add directory="unit_test" />
 			<Add directory="include/frame" />
 			<Add directory="3rd" />
+			<Add directory="." />
 		</Compiler>
 		<ResourceCompiler>
 			<Add directory="$(#wx314_x64.INCLUDE)" />

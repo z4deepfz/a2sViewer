@@ -26,7 +26,4 @@ class MainApp : public wxApp
 
 };
 
-// int main(int argc, char** argv)
-IMPLEMENT_APP(MainApp)
-
 #endif // MAINAPP_H

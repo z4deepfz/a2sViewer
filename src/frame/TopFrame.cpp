@@ -175,6 +175,15 @@ TopFrame::TopFrame(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSiz
     loadConfigToChoiceBox();
 }
 
+
+// use `DECLARE_APP(wxApp)` instead `DECLARE_APP(MainApp)`.
+// Though later one is what exactly this program use
+// Why: This macro just declare `extern wxApp& wxGetApp()`
+// according to virtual function, I can invoke any method of classes drived from `wxApp`
+// but if I use `DECLARE_APP(MainApp)`, delaration of `MainApp` must be included in **this** cpp file
+// obviously it's ugly and probably SLOW DOWN compilation because recursivly header file
+DECLARE_APP(wxApp)
+
 TopFrame::~TopFrame()
 {
 	//(*Destroy(TopFrame)
@@ -182,5 +191,10 @@ TopFrame::~TopFrame()
 
 	local_manager.SaveAll();
 	std::cerr << "<TopFrame> frame destructed.\n";
+
+	// get ptr of singleton `MainApp`, reinterupt it into base class `wxApp`
+	// and call `ExitMainLoop` to quit whole program
+	// I temprory can't find better way to do it.
+	wxGetApp().ExitMainLoop();
 }
 

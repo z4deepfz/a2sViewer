@@ -1,5 +1,14 @@
 #include "MainApp.h"
 
+/// BEGIN OF IMPLEMENMT
+    // I don't know why wxSmith implement app in header file(originally in MainApp.h)
+    // It's quite stupid because it may cause duplicated symbol
+    // So I move it to cpp file. Now "MainApp.h" could be included anywhere
+IMPLEMENT_APP(MainApp)
+/// END OF IMPLEMENT
+
+
+
 MainApp::MainApp()
 {
     //ctor
