@@ -98,6 +98,7 @@
 		<Unit filename="include/LocalDataManager.h" />
 		<Unit filename="include/QuickQuerySubscribe.h" />
 		<Unit filename="include/SmartClientData.h" />
+		<Unit filename="include/TaskBarIcon.h" />
 		<Unit filename="include/a2s_info_l4d2.h" />
 		<Unit filename="include/a2s_player.h" />
 		<Unit filename="include/basic_StorageObject.h" />
@@ -117,6 +118,7 @@
 		<Unit filename="src/IO.cpp" />
 		<Unit filename="src/LocalDataManager.cpp" />
 		<Unit filename="src/QuickQuerySubscribe.cpp" />
+		<Unit filename="src/TaskBarIcon.cpp" />
 		<Unit filename="src/a2s_info_l4d2.cpp" />
 		<Unit filename="src/a2s_player.cpp" />
 		<Unit filename="src/basic_StorageObject.cpp" />

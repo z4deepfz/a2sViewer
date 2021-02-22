@@ -181,5 +181,6 @@ TopFrame::~TopFrame()
 	//*)
 
 	local_manager.SaveAll();
+	std::cerr << "<TopFrame> frame destructed.\n";
 }
 
