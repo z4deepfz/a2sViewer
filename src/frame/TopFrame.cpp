@@ -27,6 +27,10 @@ const long TopFrame::ID_STATICTEXT1 = wxNewId();
 const long TopFrame::ID_TEXTCTRL1 = wxNewId();
 const long TopFrame::ID_STATICTEXT2 = wxNewId();
 const long TopFrame::ID_TEXTCTRL2 = wxNewId();
+const long TopFrame::ID_STATICTEXT9 = wxNewId();
+const long TopFrame::ID_TEXTCTRL3 = wxNewId();
+const long TopFrame::ID_BUTTON2 = wxNewId();
+const long TopFrame::ID_BUTTON3 = wxNewId();
 const long TopFrame::ID_CHOICE1 = wxNewId();
 const long TopFrame::ID_BUTTON1 = wxNewId();
 const long TopFrame::ID_STATICTEXT8 = wxNewId();
@@ -44,7 +48,8 @@ BEGIN_EVENT_TABLE(TopFrame,wxFrame)
 	//*)
 END_EVENT_TABLE()
 
-TopFrame::TopFrame(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize& size)
+TopFrame::TopFrame(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize& size):
+    local(server_conf_proxy.getDataRef())
 {
 	//(*Initialize(TopFrame)
 	wxBoxSizer* BoxSizer1;
@@ -52,6 +57,8 @@ TopFrame::TopFrame(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSiz
 	wxBoxSizer* BoxSizer3;
 	wxBoxSizer* BoxSizer4;
 	wxBoxSizer* BoxSizer5;
+	wxBoxSizer* BoxSizer6;
+	wxBoxSizer* BoxSizer7;
 	wxStaticBoxSizer* StaticBoxSizer1;
 	wxStaticBoxSizer* StaticBoxSizer2;
 	wxStaticBoxSizer* StaticBoxSizer3;
@@ -80,15 +87,27 @@ TopFrame::TopFrame(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSiz
 	text_port = new wxTextCtrl(Panel1, ID_TEXTCTRL2, _("27015"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_TEXTCTRL2"));
 	BoxSizer5->Add(text_port, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	StaticBoxSizer1->Add(BoxSizer5, 1, wxALL|wxEXPAND, 0);
-	BoxSizer2->Add(StaticBoxSizer1, 1, wxALL|wxEXPAND, 5);
+	BoxSizer6 = new wxBoxSizer(wxHORIZONTAL);
+	StaticText4 = new wxStaticText(Panel1, ID_STATICTEXT9, _("名称"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT9"));
+	BoxSizer6->Add(StaticText4, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+	text_name = new wxTextCtrl(Panel1, ID_TEXTCTRL3, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_TEXTCTRL3"));
+	BoxSizer6->Add(text_name, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+	StaticBoxSizer1->Add(BoxSizer6, 1, wxALL|wxEXPAND, 0);
+	BoxSizer7 = new wxBoxSizer(wxHORIZONTAL);
+	Button1 = new wxButton(Panel1, ID_BUTTON2, _("保存"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON2"));
+	BoxSizer7->Add(Button1, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+	Button2 = new wxButton(Panel1, ID_BUTTON3, _("删除"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON3"));
+	BoxSizer7->Add(Button2, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+	StaticBoxSizer1->Add(BoxSizer7, 1, wxALL|wxEXPAND, 0);
+	BoxSizer2->Add(StaticBoxSizer1, 2, wxALL|wxEXPAND, 5);
 	StaticBoxSizer8 = new wxStaticBoxSizer(wxHORIZONTAL, Panel1, _("快速查询"));
-	choice_quickQuery = new wxChoice(Panel1, ID_CHOICE1, wxDefaultPosition, wxDefaultSize, 0, 0, 0, wxDefaultValidator, _T("ID_CHOICE1"));
+	choice_quickQuery = new BufferChoice(Panel1, ID_CHOICE1, wxDefaultPosition, wxDefaultSize, 0, 0, 0, wxDefaultValidator, _T("ID_CHOICE1"));
 	choice_quickQuery->Disable();
 	StaticBoxSizer8->Add(choice_quickQuery, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	BoxSizer2->Add(StaticBoxSizer8, 1, wxALL|wxEXPAND, 5);
 	button_query = new wxButton(Panel1, ID_BUTTON1, _("查询"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON1"));
 	BoxSizer2->Add(button_query, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxSHAPED, 5);
-	StaticText3 = new wxStaticText(Panel1, ID_STATICTEXT8, _("ver 0.32"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT8"));
+	StaticText3 = new wxStaticText(Panel1, ID_STATICTEXT8, _("ver 0.4"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT8"));
 	BoxSizer2->Add(StaticText3, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	BoxSizer1->Add(BoxSizer2, 2, wxALL|wxEXPAND, 5);
 	BoxSizer3 = new wxBoxSizer(wxVERTICAL);
@@ -132,6 +151,8 @@ TopFrame::TopFrame(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSiz
 	BoxSizer1->Fit(Panel1);
 	BoxSizer1->SetSizeHints(Panel1);
 
+	Connect(ID_BUTTON2,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&TopFrame::OnSaveConfig);
+	Connect(ID_BUTTON3,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&TopFrame::OnDeleteConfig);
 	Connect(ID_CHOICE1,wxEVT_COMMAND_CHOICE_SELECTED,(wxObjectEventFunction)&TopFrame::OnquickQuerySelect);
 	Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&TopFrame::OnQueryClick);
 	//*)
@@ -146,13 +167,19 @@ TopFrame::TopFrame(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSiz
     list_playerlist->InsertColumn(1, "分数");
     list_playerlist->InsertColumn(2, "时间");
 
-    subscribe();
+    local_manager.addStorageObject(&server_conf_proxy);
 
+    local_manager.LoadAll();    // load from local storage
+    subscribe();                // subscribe from remote
+
+    loadConfigToChoiceBox();
 }
 
 TopFrame::~TopFrame()
 {
 	//(*Destroy(TopFrame)
 	//*)
+
+	local_manager.SaveAll();
 }
 

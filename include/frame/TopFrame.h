@@ -2,6 +2,7 @@
 #define TOPFRAME_H
 
 #include <memory>
+#include <set>
 
 #include <boost/asio.hpp>
 
@@ -13,6 +14,11 @@
 #include "a2s_info_l4d2.h"
 #include "a2s_player.h"
 #include "QuickQuerySubscribe.h"
+
+// storage
+#include "LocalDataManager.h"
+#include "serverConfigStorage.h"
+#include "BufferChoice.h"
 
 //(*Headers(TopFrame)
 #include <wx/frame.h>
@@ -34,24 +40,29 @@ class TopFrame: public wxFrame
 		virtual ~TopFrame();
 
 		void Refresh();
+		void loadConfigToChoiceBox();
 		void queryInfo(const std::string& addr, uint16_t port);
 		void queryPlayers(const std::string& addr, uint16_t port, uint8_t retry=5); // 5 times retry
 
 
 		//(*Declarations(TopFrame)
+		BufferChoice* choice_quickQuery;
+		wxButton* Button1;
+		wxButton* Button2;
 		wxButton* button_query;
-		wxChoice* choice_quickQuery;
 		wxListCtrl* list_playerlist;
 		wxPanel* Panel1;
 		wxStaticText* StaticText1;
 		wxStaticText* StaticText2;
 		wxStaticText* StaticText3;
+		wxStaticText* StaticText4;
 		wxStaticText* label_keywords;
 		wxStaticText* label_mapname;
 		wxStaticText* label_player_count;
 		wxStaticText* label_servername;
 		wxStaticText* label_vac;
 		wxTextCtrl* text_IP;
+		wxTextCtrl* text_name;
 		wxTextCtrl* text_port;
 		//*)
 
@@ -62,6 +73,10 @@ class TopFrame: public wxFrame
 		static const long ID_TEXTCTRL1;
 		static const long ID_STATICTEXT2;
 		static const long ID_TEXTCTRL2;
+		static const long ID_STATICTEXT9;
+		static const long ID_TEXTCTRL3;
+		static const long ID_BUTTON2;
+		static const long ID_BUTTON3;
 		static const long ID_CHOICE1;
 		static const long ID_BUTTON1;
 		static const long ID_STATICTEXT8;
@@ -79,6 +94,8 @@ class TopFrame: public wxFrame
 		//(*Handlers(TopFrame)
 		void OnQueryClick(wxCommandEvent& event);
 		void OnquickQuerySelect(wxCommandEvent& event);
+		void OnSaveConfig(wxCommandEvent& event);
+		void OnDeleteConfig(wxCommandEvent& event);
 		//*)
 
 		DECLARE_EVENT_TABLE()
@@ -114,6 +131,16 @@ class TopFrame: public wxFrame
         a2s_player              player_response;
 
         std::string recv_buffer;
+
+    protected: // about qiuck query
+
+        std::set<quickQuery> remote;
+        std::set<quickQuery>& local;
+
+    protected:
+
+        LocalDataManager local_manager;
+            serverConfigStorage server_conf_proxy;
 
 
 

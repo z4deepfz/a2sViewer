@@ -14,6 +14,7 @@ void TopFrame::queryInfo(const std::string& addr, uint16_t port) {
     return;
 }
 
+
 void TopFrame::queryPlayers(const std::string& addr, uint16_t port, uint8_t retry) {
     //                      ^ since may requery, use std::string to hold address instead of const char*
     //                        const char* is not relieable because it may be moved or destructed
@@ -40,6 +41,7 @@ void TopFrame::queryPlayers(const std::string& addr, uint16_t port, uint8_t retr
                    addr.c_str(), port);
 }
 
+
 void TopFrame::updateBoard(
     const wxString& server_name,
     const wxString& map_name,
@@ -54,7 +56,6 @@ void TopFrame::updateBoard(
     label_vac->SetLabel(vac);
     label_keywords->SetLabel(keywords);
 }
-
 
 
 void TopFrame::updateBoard(
@@ -83,7 +84,6 @@ void TopFrame::updateBoard(
 }
 
 
-
 void TopFrame::Refresh() {
     updateBoard(getNeededAttributesFromA2sResponse(response));
 }
@@ -105,6 +105,7 @@ void TopFrame::subscribe() {
 #endif // ENABLE_SUBSCRIBE
 }
 
+
 void TopFrame::updatePlayers(const std::vector<std::string>& name,
                              const std::vector<int>& score,
                              const std::vector<float>& time) {
@@ -117,6 +118,9 @@ void TopFrame::updatePlayers(const std::vector<std::string>& name,
     }
 }
 
+
+// clear GUI info, including board and player_list
+// quick choice box wouldn't changed
 void TopFrame::clearAll() {
     label_servername->SetLabel(wxEmptyString);
     label_mapname->SetLabel(wxEmptyString);
@@ -126,3 +130,11 @@ void TopFrame::clearAll() {
     list_playerlist->DeleteAllItems();
 }
 
+
+void TopFrame::loadConfigToChoiceBox() {
+    auto& choice = *choice_quickQuery;
+    std::set<quickQuery> tmp = local;
+    tmp.insert(remote.begin(), remote.end());
+    choice.buffer = tmp;
+    choice.Refresh();
+}

@@ -8,7 +8,10 @@ struct quickQuery {
     std::string name;
     std::string addr;
     uint16_t port;
+
 };
+
+bool operator< (const quickQuery& a, const quickQuery& b);
 
 void to_json(nlohmann::json& j, const quickQuery& p);
 void from_json(const nlohmann::json& j, quickQuery& p);
