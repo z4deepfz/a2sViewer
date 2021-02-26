@@ -108,6 +108,7 @@
 		<Unit filename="include/frame/TopFrame.h" />
 		<Unit filename="include/functional.h" />
 		<Unit filename="include/local_res.h" />
+		<Unit filename="include/manual_comp.h" />
 		<Unit filename="include/query.h" />
 		<Unit filename="include/serverConfigStorage.h" />
 		<Unit filename="include/util.h" />
@@ -131,6 +132,7 @@
 		<Unit filename="src/frame/TopFrameHandler.cpp" />
 		<Unit filename="src/functional.cpp" />
 		<Unit filename="src/local_res.cpp" />
+		<Unit filename="src/manual_comp.cpp" />
 		<Unit filename="src/query.cpp" />
 		<Unit filename="src/serverConfigStorage.cpp" />
 		<Unit filename="src/util.cpp" />

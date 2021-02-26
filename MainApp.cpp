@@ -9,29 +9,23 @@ IMPLEMENT_APP(MainApp)
 
 
 
-MainApp::MainApp()
-{
+MainApp::MainApp() {
     //ctor
 }
 
-MainApp::~MainApp()
-{
+MainApp::~MainApp() {
     //dtor
 }
 
 bool MainApp::OnInit()
 {
     // create and show frame
-    TopFrame* frame = new TopFrame(nullptr, wxID_ANY);
+    frame = new TopFrame(nullptr, wxID_ANY);
     frame->Show(true);
 
     // create task bar icon
-    taskbar = std::make_shared<TaskBarIcon>(frame); // give frame ptr
-    taskbar->SetIcon(wxIcon(wxT("aaaa"))); // set icon
-
-    // exit program when TopFrame quit
-    SetExitOnFrameDelete(true);
-    std::cerr << "<MainApp::OnInit>" << (GetTopWindow() == frame) << std::endl;
+    manual::taskbar = new TaskBarIcon(frame); // give frame ptr
+    manual::taskbar->SetIcon(wxIcon(wxT("aaaa"))); // set icon
 
     return true;
 }

@@ -96,6 +96,7 @@ class TopFrame: public wxFrame
 		void OnquickQuerySelect(wxCommandEvent& event);
 		void OnSaveConfig(wxCommandEvent& event);
 		void OnDeleteConfig(wxCommandEvent& event);
+		void OnClose(wxCloseEvent& event);
 		//*)
 
 		DECLARE_EVENT_TABLE()

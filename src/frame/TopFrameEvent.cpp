@@ -1,3 +1,5 @@
+#include <wx/app.h>
+#include "manual_comp.h"
 #include "TopFrame.h"
 
 // 点击：查询按钮
@@ -68,4 +70,12 @@ void TopFrame::OnDeleteConfig(wxCommandEvent& event) {
 
     local.erase(conf);
     loadConfigToChoiceBox();
+}
+
+
+
+// exit事件：如果该frame退出，直接退出wxApp
+void TopFrame::OnClose(wxCloseEvent& event) {
+    manual::taskbar->Destroy();
+    Destroy();
 }

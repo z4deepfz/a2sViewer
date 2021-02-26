@@ -2,6 +2,7 @@
 #define MAINAPP_H
 
 #include <memory>
+#include <vector>
 #include <iostream>
 
 #include <wx/app.h>
@@ -9,10 +10,14 @@
 
 #include "TopFrame.h"
 #include "TaskBarIcon.h"
+#include "manual_comp.h"
 
 
 class MainApp : public wxApp
 {
+    public:
+        friend class TopFrame;
+
     public:
 
         MainApp();
@@ -22,7 +27,7 @@ class MainApp : public wxApp
 
     protected:
 
-        std::shared_ptr<TaskBarIcon> taskbar;
+        wxFrame* frame;
 
 };
 

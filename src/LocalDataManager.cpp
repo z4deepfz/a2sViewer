@@ -24,8 +24,6 @@ void LocalDataManager::addStorageObject(basic_StorageObject* obj) {
 }
 
 
-// TODO (Ryan#1#): 如果load失败，将失败的代理移除，防止save的时候出现不一致
-
 bool LocalDataManager::LoadAll() {
     bool flag = true;
 
@@ -59,7 +57,7 @@ bool LocalDataManager::LoadAll() {
             }
         }
         else { // create it and continue
-            if(f.Create(fn) == false) {
+            if(f.Create(fn) == false) { // if success, show nothing. if failed, output error message
                 flag = suc = false;
                 std::cerr << "<LocalDataManager::LoadAll> Failed when creating file "
                           << fn << std::endl;
