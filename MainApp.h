@@ -15,8 +15,6 @@
 
 class MainApp : public wxApp
 {
-    public:
-        friend class TopFrame;
 
     public:
 
