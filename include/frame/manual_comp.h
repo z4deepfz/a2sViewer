@@ -1,7 +1,7 @@
 #ifndef MANUAL_COMP_H
 #define MANUAL_COMP_H
 
-#include "TaskBarIcon.h"
+#include "frame/taskbar/TaskBarIcon.h"
 
 
 namespace manual {

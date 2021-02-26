@@ -99,7 +99,6 @@
 		<Unit filename="include/LocalDataManager.h" />
 		<Unit filename="include/QuickQuerySubscribe.h" />
 		<Unit filename="include/SmartClientData.h" />
-		<Unit filename="include/TaskBarIcon.h" />
 		<Unit filename="include/a2s_info_l4d2.h" />
 		<Unit filename="include/a2s_player.h" />
 		<Unit filename="include/basic_StorageObject.h" />
@@ -107,6 +106,7 @@
 		<Unit filename="include/frame/BufferChoice.h" />
 		<Unit filename="include/frame/TopFrame.h" />
 		<Unit filename="include/frame/manual_comp.h" />
+		<Unit filename="include/frame/taskbar/TaskBarIcon.h" />
 		<Unit filename="include/functional.h" />
 		<Unit filename="include/local_res.h" />
 		<Unit filename="include/query.h" />
@@ -120,7 +120,6 @@
 		<Unit filename="src/IO.cpp" />
 		<Unit filename="src/LocalDataManager.cpp" />
 		<Unit filename="src/QuickQuerySubscribe.cpp" />
-		<Unit filename="src/TaskBarIcon.cpp" />
 		<Unit filename="src/a2s_info_l4d2.cpp" />
 		<Unit filename="src/a2s_player.cpp" />
 		<Unit filename="src/basic_StorageObject.cpp" />
@@ -131,6 +130,8 @@
 		<Unit filename="src/frame/TopFrameEvent.cpp" />
 		<Unit filename="src/frame/TopFrameHandler.cpp" />
 		<Unit filename="src/frame/manual_comp.cpp" />
+		<Unit filename="src/frame/taskbar/TaskBarEvent.cpp" />
+		<Unit filename="src/frame/taskbar/TaskBarIcon.cpp" />
 		<Unit filename="src/functional.cpp" />
 		<Unit filename="src/local_res.cpp" />
 		<Unit filename="src/query.cpp" />

@@ -9,9 +9,8 @@
 #include <wx/frame.h>
 
 #include "TopFrame.h"
-#include "TaskBarIcon.h"
 #include "manual_comp.h"
-
+#include "frame/taskbar/TaskBarIcon.h"
 
 class MainApp : public wxApp
 {
