@@ -11,6 +11,13 @@ class TaskBarIcon : public wxTaskBarIcon
 {
     public:
 
+        // popup menu
+        enum class PU {
+            EXIT
+        };
+
+    public:
+
         TaskBarIcon(wxFrame* frame=nullptr);
         virtual ~TaskBarIcon();
 
@@ -19,7 +26,11 @@ class TaskBarIcon : public wxTaskBarIcon
     protected:
 
         wxFrame* frame;
+        virtual wxMenu* CreatePopupMenu() override; // OS used function to pop up right click menu
 
+    protected:
+
+        void PopMenuOnExit(wxCommandEvent& event);
 
     private: DECLARE_EVENT_TABLE()
 
