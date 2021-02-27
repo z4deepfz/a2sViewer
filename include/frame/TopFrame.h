@@ -50,6 +50,7 @@ class TopFrame: public wxFrame
 		wxButton* Button1;
 		wxButton* Button2;
 		wxButton* button_query;
+		wxListCtrl* ListCtrl1;
 		wxListCtrl* list_playerlist;
 		wxPanel* Panel1;
 		wxStaticText* StaticText1;
@@ -86,6 +87,7 @@ class TopFrame: public wxFrame
 		static const long ID_STATICTEXT6;
 		static const long ID_STATICTEXT7;
 		static const long ID_LISTCTRL1;
+		static const long ID_LISTCTRL2;
 		static const long ID_PANEL1;
 		//*)
 

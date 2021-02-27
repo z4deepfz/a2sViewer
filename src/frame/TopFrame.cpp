@@ -40,6 +40,7 @@ const long TopFrame::ID_STATICTEXT5 = wxNewId();
 const long TopFrame::ID_STATICTEXT6 = wxNewId();
 const long TopFrame::ID_STATICTEXT7 = wxNewId();
 const long TopFrame::ID_LISTCTRL1 = wxNewId();
+const long TopFrame::ID_LISTCTRL2 = wxNewId();
 const long TopFrame::ID_PANEL1 = wxNewId();
 //*)
 
@@ -59,17 +60,19 @@ TopFrame::TopFrame(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSiz
 	wxBoxSizer* BoxSizer5;
 	wxBoxSizer* BoxSizer6;
 	wxBoxSizer* BoxSizer7;
+	wxBoxSizer* BoxSizer8;
 	wxStaticBoxSizer* StaticBoxSizer1;
 	wxStaticBoxSizer* StaticBoxSizer2;
 	wxStaticBoxSizer* StaticBoxSizer3;
 	wxStaticBoxSizer* StaticBoxSizer4;
 	wxStaticBoxSizer* StaticBoxSizer5;
 	wxStaticBoxSizer* StaticBoxSizer6;
+	wxStaticBoxSizer* StaticBoxSizer7;
 	wxStaticBoxSizer* StaticBoxSizer8;
 	wxStaticBoxSizer* StaticBoxSizer9;
 
 	Create(parent, wxID_ANY, _("a2s查看器（目前仅支持L4D2）"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("wxID_ANY"));
-	SetClientSize(wxSize(640,480));
+	SetClientSize(wxSize(800,600));
 	SetIcon(wxIcon(wxT("aaaa")));
 	Panel1 = new wxPanel(this, ID_PANEL1, wxPoint(328,376), wxDefaultSize, wxTAB_TRAVERSAL, _T("ID_PANEL1"));
 	BoxSizer1 = new wxBoxSizer(wxHORIZONTAL);
@@ -142,11 +145,17 @@ TopFrame::TopFrame(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSiz
 	StaticBoxSizer6->Add(label_keywords, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	BoxSizer3->Add(StaticBoxSizer6, 1, wxALL|wxEXPAND, 5);
 	BoxSizer1->Add(BoxSizer3, 3, wxALL|wxEXPAND, 5);
+	BoxSizer8 = new wxBoxSizer(wxVERTICAL);
 	StaticBoxSizer9 = new wxStaticBoxSizer(wxHORIZONTAL, Panel1, _("玩家"));
 	list_playerlist = new wxListCtrl(Panel1, ID_LISTCTRL1, wxDefaultPosition, wxDefaultSize, wxLC_REPORT, wxDefaultValidator, _T("ID_LISTCTRL1"));
 	list_playerlist->SetMinSize(wxSize(100,0));
 	StaticBoxSizer9->Add(list_playerlist, 1, wxALL|wxEXPAND, 5);
-	BoxSizer1->Add(StaticBoxSizer9, 2, wxALL|wxEXPAND, 5);
+	BoxSizer8->Add(StaticBoxSizer9, 1, wxALL|wxEXPAND, 5);
+	StaticBoxSizer7 = new wxStaticBoxSizer(wxHORIZONTAL, Panel1, _("查询队列"));
+	ListCtrl1 = new wxListCtrl(Panel1, ID_LISTCTRL2, wxDefaultPosition, wxDefaultSize, wxLC_LIST, wxDefaultValidator, _T("ID_LISTCTRL2"));
+	StaticBoxSizer7->Add(ListCtrl1, 1, wxALL|wxEXPAND, 5);
+	BoxSizer8->Add(StaticBoxSizer7, 1, wxALL|wxEXPAND, 5);
+	BoxSizer1->Add(BoxSizer8, 2, wxALL|wxEXPAND, 5);
 	Panel1->SetSizer(BoxSizer1);
 	BoxSizer1->Fit(Panel1);
 	BoxSizer1->SetSizeHints(Panel1);

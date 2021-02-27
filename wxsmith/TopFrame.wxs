@@ -2,7 +2,7 @@
 <wxsmith>
 	<object class="wxFrame" name="TopFrame">
 		<title>a2s查看器（目前仅支持L4D2）</title>
-		<size>640,480</size>
+		<size>800,600</size>
 		<extra_code>SetIcon(wxIcon(wxT(&quot;aaaa&quot;)));</extra_code>
 		<id_arg>0</id_arg>
 		<handler function="OnClose" entry="EVT_CLOSE" />
@@ -273,12 +273,34 @@
 					<option>3</option>
 				</object>
 				<object class="sizeritem">
-					<object class="wxStaticBoxSizer" variable="StaticBoxSizer9" member="no">
-						<label>玩家</label>
+					<object class="wxBoxSizer" variable="BoxSizer8" member="no">
+						<orient>wxVERTICAL</orient>
 						<object class="sizeritem">
-							<object class="wxListCtrl" name="ID_LISTCTRL1" variable="list_playerlist" member="yes">
-								<minsize>100,0</minsize>
-								<style>wxLC_REPORT</style>
+							<object class="wxStaticBoxSizer" variable="StaticBoxSizer9" member="no">
+								<label>玩家</label>
+								<object class="sizeritem">
+									<object class="wxListCtrl" name="ID_LISTCTRL1" variable="list_playerlist" member="yes">
+										<minsize>100,0</minsize>
+										<style>wxLC_REPORT</style>
+									</object>
+									<flag>wxALL|wxEXPAND</flag>
+									<border>5</border>
+									<option>1</option>
+								</object>
+							</object>
+							<flag>wxALL|wxEXPAND</flag>
+							<border>5</border>
+							<option>1</option>
+						</object>
+						<object class="sizeritem">
+							<object class="wxStaticBoxSizer" variable="StaticBoxSizer7" member="no">
+								<label>查询队列</label>
+								<object class="sizeritem">
+									<object class="wxListCtrl" name="ID_LISTCTRL2" variable="ListCtrl1" member="yes" />
+									<flag>wxALL|wxEXPAND</flag>
+									<border>5</border>
+									<option>1</option>
+								</object>
 							</object>
 							<flag>wxALL|wxEXPAND</flag>
 							<border>5</border>
